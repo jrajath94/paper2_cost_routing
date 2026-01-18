@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citation Entry",
+  "description": "Verified citation record from the citation-verifier agent. Each entry represents one citation that has been verified against multiple academic databases.",
+  "type": "object",
+  "properties": {
+    "citation_key": {
+      "type": "string",
+      "description": "BibTeX citation key (e.g., 'shinn2023reflexion')"
+    },
+    "title": {
+      "type": "string",
+      "description": "Full paper title as verified"
+    },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Author names in order as verified"
+    },
+    "year": {
+      "type": "integer",
+      "description": "Publication year as verified"
+    },
+    "venue": {
+      "type": "string",
+      "description": "Publication venue (normalized name)"
+    },
+    "doi": {
+      "type": ["string", "null"],
+      "description": "Verified DOI"
+    },
+    "arxiv_id": {
+      "type": ["string", "null"],
+      "description": "Verified arXiv identifier"
+    },
+    "semantic_scholar_id": {
+      "type": ["string", "null"],
+      "description": "Semantic Scholar corpus ID"
+    },
+    "openalex_id": {
+      "type": ["string", "null"],
+      "description": "OpenAlex work ID"
+    },
+    "url": {
+      "type": ["string", "null"],
+      "description": "Best available URL to the paper"
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": ["verified", "failed", "partial"],
+      "description": "Overall verification status. verified=all passes agree, partial=some disagreement, failed=cannot confirm existence"
+    },
+    "verification_passes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "enum": ["crossref", "semantic_scholar", "openalex"],
+            "description": "Which database was queried"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["matched", "mismatch", "not_found", "error"],
+            "description": "Result of this verification pass"
+          },
+          "matched_fields": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Which fields matched (title, authors, year, venue)"
+          },
+          "mismatched_fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": { "type": "string" },
+                "expected": { "type": "string" },
+                "found": { "type": "string" }
+              },
+              "required": ["field", "expected", "found"]
+            },
+            "description": "Fields that did not match with expected vs found values"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this verification pass was executed"
+          }
+        },
+        "required": ["source", "status", "timestamp"]
+      },
+      "description": "Results from each verification pass (CrossRef, Semantic Scholar, OpenAlex)"
+    },
+    "bibtex": {
+      "type": "string",
+      "description": "Generated BibTeX entry for verified citations"
+    },
+    "flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Any warnings or issues flagged during verification (e.g., 'title_mismatch', 'year_discrepancy')"
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When verification was completed"
+    }
+  },
+  "required": ["citation_key", "title", "authors", "year", "verification_status"]
+}

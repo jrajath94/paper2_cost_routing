@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quality History Entry",
+  "description": "Schema for quality_history.jsonl entries. Each line represents one quality assessment of a paper section by the peer-reviewer agent. Used by the quality ratchet to track per-section scores over time and detect regressions.",
+  "type": "object",
+  "properties": {
+    "section": {
+      "type": "string",
+      "description": "Section identifier (e.g., 'introduction', 'related_work', 'methods')"
+    },
+    "aggregate_score": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Average of quality, clarity, originality, and significance scores (1-10 scale). Used for ratchet comparison."
+    },
+    "scores": {
+      "type": "object",
+      "properties": {
+        "quality": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Technical quality score matching quality_scores.schema.json"
+        },
+        "clarity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Writing clarity score matching quality_scores.schema.json"
+        },
+        "originality": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Novelty score matching quality_scores.schema.json"
+        },
+        "significance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Impact score matching quality_scores.schema.json"
+        }
+      },
+      "required": ["quality", "clarity", "originality", "significance"],
+      "description": "Per-dimension scores aligned with quality_scores.schema.json (NeurIPS rubric). For ICML venues, scores are normalized to 1-10 scale before storage."
+    },
+    "reviewer_id": {
+      "type": "string",
+      "description": "Identifier for the reviewer (e.g., 'aggregate', 'methodology_skeptic', 'novelty_assessor', 'clarity_reviewer')"
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Review iteration number (1, 2, 3, ...)"
+    },
+    "previous_best": {
+      "type": ["number", "null"],
+      "minimum": 1,
+      "maximum": 10,
+      "description": "The section's previous high-water mark aggregate score. Null for the first review of a section."
+    },
+    "action": {
+      "type": "string",
+      "enum": ["accepted", "rejected"],
+      "description": "Whether this draft was kept (score >= previous best) or discarded (regression detected)"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when this assessment was recorded"
+    },
+    "commit_sha": {
+      "type": "string",
+      "description": "Git commit SHA of the draft being scored"
+    }
+  },
+  "required": [
+    "section",
+    "aggregate_score",
+    "scores",
+    "reviewer_id",
+    "round",
+    "previous_best",
+    "action",
+    "timestamp",
+    "commit_sha"
+  ],
+  "additionalProperties": false
+}

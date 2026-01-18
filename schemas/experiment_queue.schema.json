@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Experiment Queue",
+  "description": "Schema for queue.json used in overnight autonomous mode. Defines a batch of experiment variations to run sequentially with git-commit-per-experiment and keep/discard logic based on a primary metric.",
+  "type": "object",
+  "properties": {
+    "queue_id": {
+      "type": "string",
+      "description": "Unique identifier for this queue run (e.g., 'overnight_2026_03_15')"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this queue was created"
+    },
+    "metric_name": {
+      "type": "string",
+      "description": "Name of the primary metric to use for keep/discard decisions"
+    },
+    "metric_direction": {
+      "type": "string",
+      "enum": ["higher_is_better", "lower_is_better"],
+      "description": "Whether higher or lower metric values indicate better performance"
+    },
+    "base_spec": {
+      "type": "string",
+      "description": "Path to the base experiment spec JSON that each variation overrides"
+    },
+    "experiments": {
+      "type": "array",
+      "description": "Ordered list of experiment variations to run",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this variation within the queue"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of what this variation tests"
+          },
+          "overrides": {
+            "type": "object",
+            "description": "Key-value overrides to apply on top of the base spec",
+            "additionalProperties": true
+          },
+          "seeds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "List of random seeds to run this variation with (default: [42, 123, 456])"
+          }
+        },
+        "required": ["id", "description", "overrides", "seeds"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "composite_metric": {
+      "type": "object",
+      "description": "Optional weighted combination for non-scalar metric comparison. Keys are metric names, values are weights (must sum to 1.0).",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    }
+  },
+  "required": [
+    "queue_id",
+    "created_at",
+    "metric_name",
+    "metric_direction",
+    "base_spec",
+    "experiments"
+  ],
+  "additionalProperties": false
+}

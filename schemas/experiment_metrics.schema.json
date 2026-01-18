@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Experiment Metrics",
+  "description": "Schema for per-experiment metrics.json output. Each experiment run produces one metrics.json file in its result directory, capturing the experiment identity, seed, timing, hardware, and measured metrics.",
+  "type": "object",
+  "properties": {
+    "experiment_name": {
+      "type": "string",
+      "description": "Unique identifier for this experiment run (e.g., 'ablation_no_memory_seed42')"
+    },
+    "experiment_type": {
+      "type": "string",
+      "enum": ["benchmark", "ablation", "comparison", "validation"],
+      "description": "Category of experiment: benchmark (baseline measurement), ablation (component removal), comparison (method vs method), validation (correctness check)"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Random seed used for this run. All RNGs (Python, NumPy, PyTorch) are pinned to this value."
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the experiment execution began"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the experiment execution finished"
+    },
+    "hardware": {
+      "type": "object",
+      "description": "Hardware and environment snapshot captured at experiment start",
+      "properties": {
+        "cpu": {
+          "type": "string",
+          "description": "CPU model or architecture identifier (e.g., 'arm', 'x86_64', 'Apple M2')"
+        },
+        "cpu_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of logical CPU cores available"
+        },
+        "os": {
+          "type": "string",
+          "description": "Operating system and version (e.g., 'Darwin 23.1.0')"
+        },
+        "python_version": {
+          "type": "string",
+          "description": "Python interpreter version (e.g., '3.9.13')"
+        },
+        "ram_gb": {
+          "type": ["number", "null"],
+          "description": "Total system RAM in gigabytes. Null if detection failed."
+        },
+        "gpu": {
+          "type": "string",
+          "description": "GPU model and memory, or 'none' if no GPU detected"
+        },
+        "cuda_version": {
+          "type": ["string", "null"],
+          "description": "CUDA toolkit version string, or null if no CUDA available"
+        }
+      },
+      "required": ["cpu", "cpu_count", "os", "python_version", "ram_gb", "gpu", "cuda_version"],
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Measured metrics from this experiment run. Keys are metric names, values are numeric results. Structure varies per experiment type.",
+      "additionalProperties": true
+    },
+    "primary_metric": {
+      "type": "object",
+      "description": "The single most important metric for this experiment, used for keep/discard decisions in overnight mode",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Metric name matching a key in the metrics object"
+        },
+        "value": {
+          "type": "number",
+          "description": "Numeric value of the primary metric"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["higher_is_better", "lower_is_better"],
+          "description": "Whether higher or lower values indicate better performance"
+        }
+      },
+      "required": ["name", "value", "direction"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "experiment_name",
+    "experiment_type",
+    "seed",
+    "started_at",
+    "completed_at",
+    "hardware",
+    "metrics",
+    "primary_metric"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quality Scores",
+  "description": "Peer review quality scores following NeurIPS rubric. Output contract for the peer-reviewer agent. Each review evaluates a paper section or the full paper.",
+  "type": "object",
+  "properties": {
+    "reviewer_id": {
+      "type": "string",
+      "description": "Unique identifier for this reviewer instance (e.g., reviewer-methodology-v1)"
+    },
+    "review_round": {
+      "type": "integer",
+      "description": "Which review iteration this is (1, 2, 3, ...)"
+    },
+    "paper_section": {
+      "type": "string",
+      "description": "Which section was reviewed (e.g., 'introduction', 'methodology', 'full-paper')"
+    },
+    "scores": {
+      "type": "object",
+      "properties": {
+        "quality": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Technical quality: correctness of claims, valid methodology, appropriate evaluation. 1=fundamentally flawed, 5=acceptable with issues, 10=technically impeccable"
+        },
+        "clarity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Writing clarity: well-organized, clearly written, easy to follow. 1=incomprehensible, 5=adequate, 10=exceptionally clear"
+        },
+        "originality": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Novelty of contributions: new ideas, methods, or perspectives. 1=no novelty, 5=some new elements, 10=groundbreaking"
+        },
+        "significance": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Potential impact: importance to the field, practical value, influence on future work. 1=no impact, 5=moderate interest, 10=transformative"
+        }
+      },
+      "required": ["quality", "clarity", "originality", "significance"],
+      "description": "NeurIPS-rubric scores on four dimensions"
+    },
+    "strengths": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Specific strengths of the section/paper"
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Specific weaknesses requiring attention"
+    },
+    "questions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Questions for the authors to address"
+    },
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Where in the text (section, paragraph, line reference)"
+          },
+          "issue": {
+            "type": "string",
+            "description": "What the problem is"
+          },
+          "suggestion": {
+            "type": "string",
+            "description": "Specific actionable suggestion"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "major", "minor"],
+            "description": "How important this suggestion is"
+          }
+        },
+        "required": ["location", "issue", "suggestion", "priority"]
+      },
+      "description": "Specific, actionable suggestions with location references"
+    },
+    "overall_recommendation": {
+      "type": "string",
+      "enum": ["strong_reject", "reject", "weak_reject", "borderline", "weak_accept", "accept", "strong_accept"],
+      "description": "Overall recommendation for the paper/section"
+    },
+    "confidence": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Reviewer confidence in this assessment. 1=low, 3=moderate, 5=expert-level"
+    },
+    "review_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this review was produced"
+    }
+  },
+  "required": ["reviewer_id", "scores", "overall_recommendation"]
+}

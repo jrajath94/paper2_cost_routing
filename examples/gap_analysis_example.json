@@ -1,0 +1,71 @@
+{
+  "_note": "EXAMPLE DATA -- not real analysis. Demonstrates the research_gaps.schema.json format with all fields populated.",
+  "topic": "Multi-agent LLM orchestration for complex task decomposition",
+  "literature_map_ref": "paper/output/literature_map.json",
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "description": "No existing work connects hierarchical planning methods (SHOP2, HTN) with LLM multi-agent orchestration. Planning literature assumes known task schemas; LLM agent literature assumes flat or manually-specified agent structures. The intersection -- principled decomposition of open-ended tasks into agent-executable subtasks -- is unexplored.",
+      "cluster_a": {
+        "name": "hierarchical-planning",
+        "description": "Classical AI planning approaches that decompose tasks into hierarchical structures with formal completeness properties",
+        "key_papers": ["SS-12345678", "SS-23456789", "ARXIV-2301.00001"]
+      },
+      "cluster_b": {
+        "name": "multi-agent-frameworks",
+        "description": "LLM-based multi-agent systems with conversation-based or role-based coordination",
+        "key_papers": ["SS-267045940", "SS-271983291", "ARXIV-2308.00002"]
+      },
+      "novelty_score": 8.5,
+      "novelty_justification": "Zero cross-citations between the two clusters despite both addressing task decomposition. The planning cluster cites STRIPS, PDDL, and HTN literature exclusively. The multi-agent cluster cites ReAct, CoT, and tool-use papers exclusively. A Semantic Scholar search for 'hierarchical planning LLM multi-agent' returns zero direct results combining both approaches.",
+      "evidence": ["SS-267045940", "SS-271983291", "ARXIV-2310.06692", "SS-12345678"],
+      "feasibility": {
+        "score": 7,
+        "assessment": "Feasible within a single paper. The key experiment would be adapting HTN decomposition to work with an LLM meta-planner that generates task hierarchies dynamically. No new data collection needed -- can use existing benchmarks (HumanEval, WebArena, GSM8K). Main risk is computational cost of the planning + agent execution loop.",
+        "required_resources": [
+          "Access to GPT-4 or Claude API for agent execution",
+          "HumanEval, WebArena, GSM8K benchmark suites",
+          "Baseline implementations of AutoGen, CrewAI, MetaGPT",
+          "~$500 in API costs for full evaluation"
+        ]
+      },
+      "recommended_framing": "Position as bridging classical AI planning with modern LLM agents. Title angle: 'From STRIPS to Agents: Hierarchical Task Decomposition for Multi-Agent LLM Systems.' The key contribution would be a formal decomposition algorithm that takes an open-ended task description and produces a valid HTN-style task hierarchy where each leaf is executable by a single LLM agent. Evaluate on tasks of varying complexity to show the hierarchical approach scales better than flat orchestration.",
+      "confidence": "HIGH"
+    },
+    {
+      "gap_id": "GAP-002",
+      "description": "Existing multi-agent LLM systems have no principled method for determining the optimal number of agents for a given task. Current approaches either use a fixed number (typically 2-5) or let developers specify the count manually. No work investigates adaptive agent scaling where the system dynamically determines how many agents to spawn based on task complexity analysis.",
+      "cluster_a": {
+        "name": "adaptive-scaling",
+        "description": "Systems that dynamically adjust computational resources based on task characteristics",
+        "key_papers": ["SS-34567890", "ARXIV-2305.00003"]
+      },
+      "cluster_b": {
+        "name": "multi-agent-frameworks",
+        "description": "LLM-based multi-agent systems with fixed or manually-specified agent counts",
+        "key_papers": ["SS-267045940", "SS-271983291", "ARXIV-2309.00004"]
+      },
+      "novelty_score": 6.5,
+      "novelty_justification": "Some adjacent work exists: AgentVerse explores dynamic group composition but does not address the count determination problem directly. Mixture-of-Experts models adaptively route to different experts but at the model level, not the agent level. The specific question of 'how many agents should work on this task?' remains unaddressed but is a narrower contribution than GAP-001.",
+      "evidence": ["SS-267045940", "SS-271983291", "SS-34567890"],
+      "feasibility": {
+        "score": 8,
+        "assessment": "Highly feasible. The core experiment is straightforward: train a lightweight complexity estimator that predicts optimal agent count from task description, then compare fixed-count vs. adaptive-count configurations. Could be done as an empirical study without formal analysis.",
+        "required_resources": [
+          "Multi-agent framework (AutoGen or custom)",
+          "Task complexity benchmark with known difficulty levels",
+          "~$300 in API costs"
+        ]
+      },
+      "recommended_framing": "Position as an efficiency contribution: 'Right-Sizing Multi-Agent LLM Systems: Adaptive Agent Scaling for Cost-Effective Task Solving.' The key contribution would be a complexity-aware agent spawning mechanism that reduces token costs on simple tasks while maintaining quality on complex ones. Likely a workshop paper rather than main conference unless paired with strong theoretical grounding.",
+      "confidence": "MEDIUM"
+    }
+  ],
+  "analysis_metadata": {
+    "papers_analyzed": 47,
+    "clusters_identified": 5,
+    "citation_edges_mapped": 312,
+    "sparse_regions_found": 7
+  },
+  "generated_at": "2026-03-14T10:30:00Z"
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Paper Log Entry",
+  "description": "JSONL execution log entry for the paper pipeline. Each line in paper_log.jsonl is one command execution record. Supports auto-resume by tracking which stages completed, and provides an audit trail of all pipeline activity.",
+  "type": "object",
+  "properties": {
+    "command": {
+      "type": "string",
+      "description": "The slash command that was executed (e.g., '/paper:discover', '/paper:draft')"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when execution began"
+    },
+    "completed_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when execution finished (null if still running or failed mid-execution)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "failed", "partial"],
+      "description": "Execution outcome. success=all steps completed, failed=stopped on error, partial=some steps completed"
+    },
+    "agents_invoked": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of agent names that were spawned during this execution"
+    },
+    "artifacts_produced": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "File paths of artifacts created or updated"
+    },
+    "artifacts_consumed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "File paths of artifacts read as input"
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Command-specific metrics (e.g., papers_found, gaps_identified, quality_score)"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "rationale": { "type": "string" },
+          "alternatives_considered": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["description", "rationale"]
+      },
+      "description": "Autonomous decisions made during execution with rationale"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step": { "type": "string" },
+          "error": { "type": "string" },
+          "recovery_attempted": { "type": "boolean" },
+          "recovery_outcome": { "type": ["string", "null"] }
+        },
+        "required": ["step", "error"]
+      },
+      "description": "Errors encountered during execution"
+    },
+    "resume_point": {
+      "type": ["string", "null"],
+      "description": "If status is 'partial', which step to resume from"
+    }
+  },
+  "required": ["command", "started_at", "status"]
+}

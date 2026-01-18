@@ -1,0 +1,96 @@
+{
+  "_note": "EXAMPLE DATA -- not real search results. Demonstrates the literature_map.schema.json format with all fields populated.",
+  "topic": "Multi-agent LLM orchestration for complex task decomposition",
+  "search_queries": [
+    "multi-agent LLM orchestration",
+    "LLM agent task decomposition",
+    "collaborative AI agents complex reasoning"
+  ],
+  "papers": [
+    {
+      "id": "SS-267045940",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "authors": ["Qingyun Wu", "Gagan Bansal", "Jieyu Zhang", "Yiran Wu", "Beibin Li", "Erkang Zhu", "Li Jiang", "Xiaoyun Zhang", "Shaokun Zhang", "Jiale Liu", "Ahmed Hassan Awadallah", "Ryen W. White", "Doug Burger", "Chi Wang"],
+      "year": 2023,
+      "venue": "arXiv preprint",
+      "doi": null,
+      "arxiv_id": "2308.08155",
+      "semantic_scholar_id": "267045940",
+      "openalex_id": "W4386044705",
+      "abstract": "AutoGen is an open-source framework that allows developers to build LLM applications via multiple agents that can converse with each other to solve tasks.",
+      "contribution": "Introduces a multi-agent conversation framework where LLM agents collaborate through structured dialogue, supporting customizable agent roles and human-in-the-loop patterns.",
+      "limitation": "Focuses on conversation-based coordination; does not address fine-grained task decomposition or dynamic agent spawning based on subtask complexity.",
+      "relevance_score": 9.2,
+      "citations_count": 1847,
+      "references": [],
+      "cited_by": ["SS-271983291"],
+      "cluster": "multi-agent-frameworks",
+      "retrieval_source": "semantic_scholar"
+    },
+    {
+      "id": "SS-271983291",
+      "title": "AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors",
+      "authors": ["Weize Chen", "Yusheng Su", "Jingwei Zuo", "Cheng Yang", "Chenfei Yuan", "Chi-Min Chan", "Heyang Yu", "Yaxi Lu", "Yi-Hsin Hung", "Chen Qian", "Yujia Qin", "Xin Cong", "Ruobing Xie", "Zhiyuan Liu", "Maosong Sun", "Jie Zhou"],
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "doi": "10.48550/arXiv.2308.10848",
+      "arxiv_id": "2308.10848",
+      "semantic_scholar_id": "271983291",
+      "openalex_id": "W4385966218",
+      "abstract": "AgentVerse provides a framework for multi-agent collaboration that supports dynamic agent group adjustment and explores emergent collaborative behaviors.",
+      "contribution": "Demonstrates that dynamically adjusting the composition of agent groups during task solving leads to better performance than static agent assignments, with emergent specialization patterns.",
+      "limitation": "Agent group dynamics are rule-based rather than learned; scaling beyond 10 agents shows diminishing returns without clear mitigation.",
+      "relevance_score": 8.7,
+      "citations_count": 423,
+      "references": ["SS-267045940"],
+      "cited_by": [],
+      "cluster": "multi-agent-frameworks",
+      "retrieval_source": "semantic_scholar"
+    },
+    {
+      "id": "ARXIV-2310.06692",
+      "title": "Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models",
+      "authors": ["Andy Zhou", "Kai Yan", "Michal Shlapentokh-Rothman", "Haohan Wang", "Yu-Xiong Wang"],
+      "year": 2023,
+      "venue": "ICML 2024",
+      "doi": null,
+      "arxiv_id": "2310.06692",
+      "semantic_scholar_id": "264172640",
+      "openalex_id": null,
+      "abstract": "LATS introduces a general framework that synergizes the capabilities of LLMs for reasoning, acting, and planning by leveraging Monte Carlo Tree Search.",
+      "contribution": "Unifies reasoning (Chain-of-Thought), acting (ReAct), and planning (Tree-of-Thoughts) into a single MCTS-based framework, achieving state-of-the-art on HumanEval and WebShop benchmarks.",
+      "limitation": "Computational cost is 3-5x higher than single-pass methods due to tree expansion; does not explore multi-agent variants where different agents handle different tree branches.",
+      "relevance_score": 8.1,
+      "citations_count": 312,
+      "references": [],
+      "cited_by": [],
+      "cluster": "reasoning-planning",
+      "retrieval_source": "arxiv"
+    }
+  ],
+  "clusters": [
+    {
+      "name": "multi-agent-frameworks",
+      "description": "Systems for orchestrating multiple LLM agents in collaborative or competitive configurations",
+      "paper_ids": ["SS-267045940", "SS-271983291"]
+    },
+    {
+      "name": "reasoning-planning",
+      "description": "Methods for structured reasoning and planning in LLM-based agents",
+      "paper_ids": ["ARXIV-2310.06692"]
+    }
+  ],
+  "generated_at": "2026-03-14T10:00:00Z",
+  "total_papers": 3,
+  "search_metadata": {
+    "databases_searched": ["semantic_scholar", "arxiv", "openalex"],
+    "total_results_found": 247,
+    "duplicates_removed": 38,
+    "papers_excluded": 206,
+    "exclusion_reasons": [
+      "Relevance score below 5.0 threshold",
+      "Published before 2020 cutoff",
+      "Not peer-reviewed and low citation count"
+    ]
+  }
+}

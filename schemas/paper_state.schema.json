@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Paper State",
+  "description": "Pipeline state for the paper engine. Tracks which stages have completed, current phase, quality scores, and selected topic/hypothesis. Used by commands for auto-resume and prerequisite checking.",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": ["string", "null"],
+      "description": "Selected research topic (set by /paper:discover)"
+    },
+    "hypothesis": {
+      "type": ["string", "null"],
+      "description": "Research hypothesis derived from the selected gap"
+    },
+    "selected_gap_id": {
+      "type": ["string", "null"],
+      "description": "Gap ID from research_gaps.json that was selected"
+    },
+    "target_venue": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Target venue name (e.g., 'NeurIPS 2026')"
+        },
+        "config_path": {
+          "type": "string",
+          "description": "Path to venue config file (e.g., 'paper/venues/neurips.md')"
+        },
+        "deadline": {
+          "type": ["string", "null"],
+          "description": "Submission deadline if known"
+        }
+      },
+      "description": "Target publication venue"
+    },
+    "pipeline_stages": {
+      "type": "object",
+      "properties": {
+        "discover": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        },
+        "outline": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        },
+        "literature": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        },
+        "draft": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "review_round": {
+              "type": "integer",
+              "description": "Current review iteration number"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        },
+        "compile": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        },
+        "submit_check": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not_started", "in_progress", "completed", "failed"]
+            },
+            "last_run": {
+              "type": ["string", "null"],
+              "format": "date-time"
+            },
+            "artifacts": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "required": ["status"]
+        }
+      },
+      "description": "Status of each pipeline stage"
+    },
+    "target_paper_type": {
+      "type": "string",
+      "enum": ["empirical", "theoretical", "survey", "systems"],
+      "default": "empirical",
+      "description": "Which paper-type template is active. Determines section ordering, citation density targets, figure requirements, and agent ensemble configuration. See paper/templates/paper_types/."
+    },
+    "quality_scores": {
+      "type": "object",
+      "properties": {
+        "latest_overall": {
+          "type": ["number", "null"],
+          "description": "Latest aggregate quality score (average of all dimension scores)"
+        },
+        "quality_threshold": {
+          "type": "number",
+          "default": 7,
+          "description": "Minimum quality score to pass review gate"
+        },
+        "review_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "round": { "type": "integer" },
+              "overall_score": { "type": "number" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          },
+          "description": "History of quality scores across review rounds"
+        }
+      },
+      "description": "Aggregate quality tracking"
+    },
+    "quality_high_water_marks": {
+      "type": "object",
+      "description": "Per-section high-water mark tracking for the quality ratchet. Each key is a section name (e.g., 'introduction', 'related_work'), value tracks the best score achieved.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Best aggregate score achieved for this section"
+          },
+          "round": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Review round in which the high-water mark was set"
+          },
+          "commit_sha": {
+            "type": "string",
+            "description": "Git commit SHA of the draft that achieved this score"
+          }
+        },
+        "required": ["score", "round", "commit_sha"]
+      }
+    },
+    "current_phase": {
+      "type": "string",
+      "description": "Which pipeline phase is currently active"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When state was last modified"
+    }
+  },
+  "required": ["pipeline_stages"]
+}

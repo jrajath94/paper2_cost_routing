@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Research Gaps",
+  "description": "Structured output from gap-analyzer agent. Identifies genuine research gaps by analyzing citation graph patterns, co-citation proximity, and cluster connectivity.",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "The research topic analyzed"
+    },
+    "literature_map_ref": {
+      "type": "string",
+      "description": "Path to the literature_map.json used as input"
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "gap_id": {
+            "type": "string",
+            "description": "Unique identifier for this gap (e.g., GAP-001)"
+          },
+          "description": {
+            "type": "string",
+            "description": "2-3 sentence description of the research gap"
+          },
+          "cluster_a": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "key_papers": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Paper IDs from literature_map"
+              }
+            },
+            "required": ["name", "key_papers"],
+            "description": "Research cluster on one side of the gap"
+          },
+          "cluster_b": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "key_papers": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Paper IDs from literature_map"
+              }
+            },
+            "required": ["name", "key_papers"],
+            "description": "Research cluster on the other side of the gap"
+          },
+          "novelty_score": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Novelty assessment (1=well-explored, 10=completely unexplored)"
+          },
+          "novelty_justification": {
+            "type": "string",
+            "description": "Explanation of why this score was assigned, citing specific citation patterns"
+          },
+          "evidence": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 3,
+            "description": "Paper IDs supporting the existence of this gap (minimum 3)"
+          },
+          "feasibility": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 10,
+                "description": "Feasibility of addressing this gap in one paper (1=very hard, 10=straightforward)"
+              },
+              "assessment": {
+                "type": "string",
+                "description": "Why this is or is not feasible to address"
+              },
+              "required_resources": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "What would be needed (datasets, compute, baselines, etc.)"
+              }
+            },
+            "required": ["score", "assessment"]
+          },
+          "recommended_framing": {
+            "type": "string",
+            "description": "Suggested angle for a paper addressing this gap"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["HIGH", "MEDIUM", "LOW"],
+            "description": "Confidence in this gap being genuine and novel"
+          }
+        },
+        "required": ["gap_id", "description", "novelty_score", "evidence"]
+      },
+      "minItems": 3,
+      "description": "Array of identified research gaps, ranked by novelty score"
+    },
+    "analysis_metadata": {
+      "type": "object",
+      "properties": {
+        "papers_analyzed": { "type": "integer" },
+        "clusters_identified": { "type": "integer" },
+        "citation_edges_mapped": { "type": "integer" },
+        "sparse_regions_found": { "type": "integer" }
+      },
+      "description": "Statistics about the gap analysis process"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of generation"
+    }
+  },
+  "required": ["topic", "gaps", "generated_at"]
+}

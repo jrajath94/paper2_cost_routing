@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Literature Map",
+  "description": "Structured output from literature-scout agent. Maps a research topic to its relevant paper corpus with citation metadata, relevance scoring, and cross-reference links.",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "The research topic or query that was searched"
+    },
+    "search_queries": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "All search queries executed across databases"
+    },
+    "papers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier (format: SS-{semantic_scholar_id} or ARXIV-{arxiv_id})"
+          },
+          "title": {
+            "type": "string",
+            "description": "Full paper title"
+          },
+          "authors": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of author names in order"
+          },
+          "year": {
+            "type": "integer",
+            "description": "Publication year"
+          },
+          "venue": {
+            "type": "string",
+            "description": "Publication venue (conference, journal, or preprint server)"
+          },
+          "doi": {
+            "type": ["string", "null"],
+            "description": "Digital Object Identifier if available"
+          },
+          "arxiv_id": {
+            "type": ["string", "null"],
+            "description": "arXiv identifier (e.g., 2310.12345) if available"
+          },
+          "semantic_scholar_id": {
+            "type": ["string", "null"],
+            "description": "Semantic Scholar corpus ID if available"
+          },
+          "openalex_id": {
+            "type": ["string", "null"],
+            "description": "OpenAlex work ID if available"
+          },
+          "abstract": {
+            "type": ["string", "null"],
+            "description": "Paper abstract"
+          },
+          "contribution": {
+            "type": "string",
+            "description": "1-2 sentence summary of the paper's main contribution"
+          },
+          "limitation": {
+            "type": "string",
+            "description": "Key limitation or gap this paper leaves open"
+          },
+          "relevance_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "Relevance to the research topic (0=tangential, 10=directly central)"
+          },
+          "citations_count": {
+            "type": "integer",
+            "description": "Number of citations at time of retrieval"
+          },
+          "references": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "IDs of papers this paper cites (from within this corpus)"
+          },
+          "cited_by": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "IDs of papers in this corpus that cite this paper"
+          },
+          "cluster": {
+            "type": ["string", "null"],
+            "description": "Research cluster assignment (e.g., 'multi-agent-orchestration', 'tool-use')"
+          },
+          "retrieval_source": {
+            "type": "string",
+            "enum": ["semantic_scholar", "arxiv", "openalex", "citation_graph", "manual"],
+            "description": "Which API or method retrieved this paper"
+          },
+          "peer_reviewed": {
+            "type": "boolean",
+            "description": "Whether the paper has been peer-reviewed (false for arXiv preprints without published version)"
+          }
+        },
+        "required": ["id", "title", "authors", "year", "venue", "contribution", "relevance_score"]
+      },
+      "description": "Array of paper entries with structured metadata"
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "paper_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name", "paper_ids"]
+      },
+      "description": "Research clusters identified in the corpus"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of generation"
+    },
+    "total_papers": {
+      "type": "integer",
+      "description": "Total number of papers in the map"
+    },
+    "search_metadata": {
+      "type": "object",
+      "properties": {
+        "databases_searched": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "total_results_found": { "type": "integer" },
+        "duplicates_removed": { "type": "integer" },
+        "papers_excluded": { "type": "integer" },
+        "exclusion_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "description": "Metadata about the search process"
+    }
+  },
+  "required": ["topic", "papers", "generated_at", "total_papers"]
+}

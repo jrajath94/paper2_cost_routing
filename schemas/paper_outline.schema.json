@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Paper Outline",
+  "description": "Structured output from ToT-lite outline generation. Contains 3 candidate paper structures with different argumentation strategies, scored on flow/novelty/engagement, with the best candidate selected and promoted to top-level sections.",
+  "type": "object",
+  "properties": {
+    "paper_type": {
+      "type": "string",
+      "description": "Paper type from paper_state.json (e.g., empirical)"
+    },
+    "agent_ensemble": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Primary agents for paper generation"
+        },
+        "supporting": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Supporting agents"
+        },
+        "optional": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional agents"
+        }
+      },
+      "required": ["primary", "supporting", "optional"],
+      "description": "Agent ensemble from paper type template"
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique candidate identifier (e.g., candidate_a)"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["problem-first", "insight-first", "evidence-first"],
+            "description": "Argumentation strategy for this candidate"
+          },
+          "rationale": {
+            "type": "string",
+            "description": "Brief rationale for why this strategy was chosen"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Section identifier (e.g., introduction, related_work)"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Human-readable section title"
+                },
+                "word_count_target": {
+                  "type": "integer",
+                  "minimum": 100,
+                  "description": "Target word count for this section"
+                },
+                "citation_density": {
+                  "type": "string",
+                  "description": "Target citation count range (e.g., 5-8)"
+                },
+                "figure_slots": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Figure/table slot identifiers for this section"
+                },
+                "agent": {
+                  "type": "string",
+                  "description": "Agent responsible for drafting this section"
+                },
+                "subsections": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Ordered list of subsection identifiers"
+                },
+                "connects_to": {
+                  "type": "string",
+                  "description": "Next section this flows into"
+                },
+                "argumentation_note": {
+                  "type": "string",
+                  "description": "Strategy-specific note on how to argue this section"
+                }
+              },
+              "required": ["id", "title", "word_count_target", "citation_density", "figure_slots", "agent", "argumentation_note"]
+            },
+            "minItems": 1,
+            "description": "Ordered list of sections for this candidate"
+          }
+        },
+        "required": ["id", "strategy", "rationale", "sections"]
+      },
+      "description": "Exactly 3 candidate outlines with different argumentation strategies"
+    },
+    "scores": {
+      "type": "object",
+      "properties": {
+        "candidate_a": {
+          "$ref": "#/definitions/score_set"
+        },
+        "candidate_b": {
+          "$ref": "#/definitions/score_set"
+        },
+        "candidate_c": {
+          "$ref": "#/definitions/score_set"
+        }
+      },
+      "required": ["candidate_a", "candidate_b", "candidate_c"],
+      "description": "ToT-lite scores for each candidate"
+    },
+    "selected_candidate": {
+      "type": "string",
+      "description": "ID of the candidate selected as best (must match a candidate.id)"
+    },
+    "selection_rationale": {
+      "type": "string",
+      "description": "Explanation of why the selected candidate won, with dimension-level comparison"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "word_count_target": { "type": "integer" },
+          "citation_density": { "type": "string" },
+          "figure_slots": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "agent": { "type": "string" },
+          "subsections": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "connects_to": { "type": "string" },
+          "argumentation_note": { "type": "string" }
+        },
+        "required": ["id", "title", "word_count_target", "citation_density", "agent"]
+      },
+      "minItems": 1,
+      "description": "Promoted sections from the selected candidate (top-level convenience)"
+    },
+    "figure_plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section_id": {
+            "type": "string",
+            "description": "Section this figure belongs to"
+          },
+          "description": {
+            "type": "string",
+            "description": "What the figure shows"
+          },
+          "type": {
+            "type": "string",
+            "description": "Figure type (e.g., architecture_diagram, result_plot, comparison_table)"
+          },
+          "data_source": {
+            "type": "string",
+            "description": "Where the data for this figure comes from"
+          }
+        },
+        "required": ["section_id", "description", "type"]
+      },
+      "description": "Planned figures and tables for the paper"
+    },
+    "total_word_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Total target word count across all sections"
+    },
+    "venue": {
+      "type": "string",
+      "description": "Target venue (e.g., NeurIPS 2026)"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of generation"
+    }
+  },
+  "required": [
+    "paper_type",
+    "agent_ensemble",
+    "candidates",
+    "scores",
+    "selected_candidate",
+    "selection_rationale",
+    "sections",
+    "figure_plan",
+    "total_word_count",
+    "venue",
+    "generated_at"
+  ],
+  "definitions": {
+    "score_set": {
+      "type": "object",
+      "properties": {
+        "flow": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Logical flow score (1-10)"
+        },
+        "novelty": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Novelty positioning score (1-10)"
+        },
+        "engagement": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "description": "Reader engagement score (1-10)"
+        },
+        "weighted": {
+          "type": "number",
+          "description": "Weighted composite: flow*0.4 + novelty*0.35 + engagement*0.25"
+        }
+      },
+      "required": ["flow", "novelty", "engagement", "weighted"]
+    }
+  }
+}

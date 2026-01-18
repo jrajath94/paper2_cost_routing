@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Integration Plan",
+  "description": "Coordination artifact for multi-agent paper writing. Defines consistent terminology, narrative arc, section-to-agent mapping, and cross-section constraints. Consumed by ALL section-writer invocations for consistency.",
+  "type": "object",
+  "properties": {
+    "terminology": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Key-value glossary mapping concept keys to consistent term usage (e.g., our_method -> AdaptiveOrch)"
+    },
+    "narrative_arc": {
+      "type": "object",
+      "properties": {
+        "problem": {
+          "type": "string",
+          "description": "The problem statement framing"
+        },
+        "gap": {
+          "type": "string",
+          "description": "The specific research gap being addressed"
+        },
+        "insight": {
+          "type": "string",
+          "description": "The key insight or novel observation"
+        },
+        "method": {
+          "type": "string",
+          "description": "The proposed method or approach"
+        },
+        "evidence": {
+          "type": "string",
+          "description": "What evidence supports the approach"
+        },
+        "implication": {
+          "type": "string",
+          "description": "Broader implications and future directions"
+        }
+      },
+      "required": ["problem", "gap", "insight", "method", "evidence", "implication"],
+      "description": "Narrative arc: problem -> gap -> insight -> method -> evidence -> implication"
+    },
+    "section_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section_id": {
+            "type": "string",
+            "description": "Section identifier matching paper_outline.json sections"
+          },
+          "agent": {
+            "type": "string",
+            "description": "Agent responsible for drafting this section"
+          },
+          "citation_density_target": {
+            "type": "string",
+            "description": "Target citation count range (e.g., 5-8)"
+          },
+          "word_count_target": {
+            "type": "integer",
+            "minimum": 100,
+            "description": "Target word count"
+          },
+          "figure_slots": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Figure/table slots assigned to this section"
+          },
+          "narrative_role": {
+            "type": "string",
+            "description": "This section's role in the narrative arc (e.g., problem + gap)"
+          },
+          "depends_on": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Section IDs that must be drafted before this one"
+          },
+          "key_terminology": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Terminology keys from the glossary that this section must use consistently"
+          }
+        },
+        "required": ["section_id", "agent", "citation_density_target", "word_count_target", "narrative_role"]
+      },
+      "minItems": 1,
+      "description": "Section-to-agent mapping with citation and word count targets"
+    },
+    "cross_section_constraints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Constraints that span multiple sections (e.g., consistent baseline names)"
+    },
+    "abstract_status": {
+      "type": "string",
+      "description": "Status of the abstract (e.g., deferred_to_post_draft)"
+    },
+    "neurips_checklist_slots": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Mapping of NeurIPS checklist categories to section IDs where they are addressed"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of generation"
+    }
+  },
+  "required": [
+    "terminology",
+    "narrative_arc",
+    "section_map",
+    "cross_section_constraints",
+    "abstract_status",
+    "neurips_checklist_slots",
+    "generated_at"
+  ]
+}

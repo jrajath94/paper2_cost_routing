@@ -1,0 +1,31 @@
+{
+  "topic": "Orchestration Topology Benchmarking: Which Multi-Agent LLM Architecture Fits Which Task?",
+  "hypothesis": "Multi-agent orchestration topology effectiveness is task-dependent: hierarchical SOP-based orchestration outperforms flat conversation on decomposable structured tasks, while flat conversation outperforms hierarchical on tasks requiring iterative refinement and open-ended exploration. No single topology dominates across all task types.",
+  "selected_gap_id": "GAP-001",
+  "target_venue": {
+    "name": "NeurIPS 2026",
+    "config_path": "paper/venues/neurips.md",
+    "deadline": "2026-05-06"
+  },
+  "target_paper_type": "empirical",
+  "pipeline_stages": {
+    "discover": { "status": "completed", "last_run": "2026-03-15T17:00:00Z" },
+    "outline": { "status": "completed", "last_run": "2026-03-15T17:35:00Z" },
+    "literature": { "status": "completed", "last_run": "2026-03-16T00:10:00Z" },
+    "draft": { "status": "completed", "last_run": "2026-03-15T17:55:28Z" },
+    "review": { "status": "completed", "last_run": "2026-03-16T00:45:00Z", "review_round": 3 },
+    "compile": { "status": "completed", "last_run": "2026-03-16T00:22:00Z" },
+    "submit_check": { "status": "completed", "last_run": "2026-03-16T00:25:00Z" }
+  },
+  "quality_scores": {
+    "latest_overall": 7.0,
+    "quality_threshold": 7,
+    "review_history": [
+      {"round": 1, "overall_score": 5.0, "timestamp": "2026-03-16T00:00:00Z"},
+      {"round": 2, "overall_score": 6.3, "timestamp": "2026-03-16T00:18:00Z"},
+      {"round": 3, "overall_score": 7.0, "timestamp": "2026-03-16T00:45:00Z"}
+    ]
+  },
+  "current_phase": "complete",
+  "last_updated": "2026-03-16T00:25:00Z"
+}
