@@ -1,0 +1,247 @@
+{
+  "topic": "LLM Agent Orchestration",
+  "literature_map_ref": "paper/output/literature_map.json",
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "description": "Eighteen multi-agent frameworks exist (AutoGen, MetaGPT, ChatDev, AgentVerse, DyLAN, AFlow, etc.) and six evaluation benchmarks assess agent capabilities (AgentBench, SWE-bench, GAIA, WebArena), yet zero papers systematically compare orchestration topologies head-to-head on standardized benchmarks. The field lacks empirical evidence for which orchestration strategy (flat conversation, hierarchical SOP, role-playing, DAG-based, RL-orchestrated) suits which task type, leaving framework selection entirely unprincipled.",
+      "cluster_a": {
+        "name": "multi-agent-frameworks",
+        "description": "Frameworks and architectures for orchestrating multiple LLM agents including conversation-based, SOP-based, role-playing, and hierarchical multi-agent systems for collaborative task solving.",
+        "key_papers": [
+          "ARXIV-2308.08155",
+          "ARXIV-2308.00352",
+          "ARXIV-2303.17760",
+          "ARXIV-2307.07924",
+          "ARXIV-2505.19591"
+        ]
+      },
+      "cluster_b": {
+        "name": "evaluation-benchmarks",
+        "description": "Benchmarks and evaluation frameworks for assessing LLM agent capabilities across coding, web navigation, general assistance, and multi-turn interaction scenarios.",
+        "key_papers": [
+          "ARXIV-2308.03688",
+          "ARXIV-2310.06692",
+          "ARXIV-2311.12983",
+          "ARXIV-2307.13854",
+          "ARXIV-2507.21504"
+        ]
+      },
+      "novelty_score": 9.0,
+      "novelty_justification": "Zero cross-cluster citation edges exist between multi-agent-frameworks (18 papers) and evaluation-benchmarks (6 papers). Co-citation proximity is zero: no paper in the corpus references works from both clusters simultaneously. All existing benchmarks evaluate single-agent performance; the evaluation survey (ARXIV-2507.21504) explicitly notes orchestration evaluation as underexplored. The MAD analysis (ARXIV-2311.08590) is the closest precedent but only covers debate, not orchestration topology comparison.",
+      "evidence": [
+        "ARXIV-2308.08155",
+        "ARXIV-2308.00352",
+        "ARXIV-2308.03688",
+        "ARXIV-2307.13854",
+        "ARXIV-2311.08590",
+        "ARXIV-2507.21504"
+      ],
+      "feasibility": {
+        "score": 8,
+        "assessment": "Both clusters provide baseline papers for comparison. Public benchmark suites (AgentBench, SWE-bench, GAIA, WebArena) are available and well-documented. Gap is well-scoped between two defined clusters. Related work involves larger teams (MetaGPT: 15 authors, AgentBench: 22 authors), but a single author can implement 3-4 orchestration topologies as lightweight wrappers and run them on existing benchmarks. The key challenge is controlled experimental design to isolate topology effects from LLM capability differences.",
+        "required_resources": [
+          "Baseline implementations from both clusters (AutoGen, MetaGPT, flat/hierarchical topologies)",
+          "Public benchmark suites: AgentBench, GAIA, WebArena (all open-source)",
+          "API access for LLM evaluation (GPT-4, Claude, or open-source models)",
+          "Compute for running ~500-1000 benchmark instances across topologies"
+        ]
+      },
+      "recommended_framing": "A controlled empirical study that implements 4-5 canonical orchestration topologies (flat conversation a la AutoGen, hierarchical SOP a la MetaGPT, role-playing a la CAMEL, DAG-based a la AFlow, and RL-orchestrated a la Evolving Orchestration) and evaluates them on 3+ existing benchmarks spanning coding (SWE-bench), web navigation (WebArena), and general assistance (GAIA). The hypothesis is that orchestration topology effectiveness is task-dependent: hierarchical outperforms flat on decomposable tasks, while flat outperforms hierarchical on tasks requiring iterative refinement. This would yield the first topology selection guide for practitioners.",
+      "confidence": "HIGH"
+    },
+    {
+      "gap_id": "GAP-002",
+      "description": "Planning methods (CoT, ToT, GoT, Plan-and-Act) decompose tasks into execution steps but universally assume each step succeeds. Failure analysis papers (MAST, AgentError, Who&When) taxonomize how and where agents fail but offer no integration with planning loops. No paper proposes a planning architecture that monitors for failure signals mid-execution and dynamically replans, despite both research areas being highly active (9 planning papers, 4 failure papers, zero cross-cluster edges).",
+      "cluster_a": {
+        "name": "reasoning-planning",
+        "description": "Approaches for enhancing LLM reasoning capabilities including chain-of-thought, tree/graph-structured exploration, self-refinement, planning decomposition, and long-horizon task planning.",
+        "key_papers": [
+          "ARXIV-2305.10601",
+          "ARXIV-2503.09572",
+          "ARXIV-2303.11366",
+          "ARXIV-2308.09687",
+          "ARXIV-2406.04271"
+        ]
+      },
+      "cluster_b": {
+        "name": "failure-robustness",
+        "description": "Analysis and mitigation of LLM agent failures including failure taxonomies, automated attribution, debugging frameworks, and safety evaluation of deployed systems.",
+        "key_papers": [
+          "ARXIV-2509.25370",
+          "ARXIV-2505.xxxxx",
+          "ARXIV-2503.13657",
+          "ARXIV-2602.17753"
+        ]
+      },
+      "novelty_score": 9.0,
+      "novelty_justification": "Zero cross-cluster citation edges between reasoning-planning and failure-robustness clusters. Co-citation proximity is zero. Temporal gap amplifies novelty: planning papers cluster around 2022-2024 while failure papers are all 2025, indicating the failure research emerged after planning methods were established but hasn't yet influenced planning design. Reflexion (ARXIV-2303.11366) handles trial-level self-correction but not step-level failure detection during plan execution. Plan-and-Act (ARXIV-2503.09572) separates planner from executor but includes no failure recovery mechanism.",
+      "evidence": [
+        "ARXIV-2305.10601",
+        "ARXIV-2503.09572",
+        "ARXIV-2509.25370",
+        "ARXIV-2505.xxxxx",
+        "ARXIV-2303.11366"
+      ],
+      "feasibility": {
+        "score": 8,
+        "assessment": "Both clusters provide clear baselines: planning methods (ToT, Plan-and-Act) and failure taxonomies (MAST, AgentError). Public failure datasets exist (MAST-Data with 1600+ annotated traces, AgentErrorBench from ALFWorld/GAIA/WebShop). Gap is well-scoped: integrate failure detection into a planning loop. Single-author feasible since it extends existing planning architectures rather than building from scratch. Main risk: defining 'failure signal' precisely enough for real-time detection during plan execution.",
+        "required_resources": [
+          "Baseline planning implementations (Plan-and-Act, ToT as reference)",
+          "Failure trajectory datasets (MAST-Data, AgentErrorBench)",
+          "Public benchmarks for end-to-end evaluation (ALFWorld, GAIA, WebShop)",
+          "API access for LLM evaluation (if applicable)"
+        ]
+      },
+      "recommended_framing": "Propose a failure-aware planning architecture that augments Plan-and-Act with three components: (1) a lightweight failure detector trained on MAST taxonomy signals that monitors execution at each plan step, (2) a replanning trigger that activates when failure probability exceeds a threshold, and (3) a plan repair module that uses the failure type to select an appropriate recovery strategy (retry, backtrack, decompose further, or escalate). The hypothesis is that failure-aware planning recovers 30-50% of tasks that would otherwise fail, validated on AgentErrorBench trajectories and GAIA tasks with injected failure points.",
+      "confidence": "HIGH"
+    },
+    {
+      "gap_id": "GAP-003",
+      "description": "Tool-use research focuses exclusively on single agents learning API selection and invocation (Toolformer, Gorilla, ToolLLM, CodeAct), while multi-agent frameworks focus on agent-to-agent coordination (AutoGen, MetaGPT, ChatDev). Zero papers in either cluster address how multiple agents should coordinate shared tool access: tool delegation based on agent specialization, conflict resolution for concurrent API calls, distributed tool capability routing, and shared state management across agent-tool boundaries.",
+      "cluster_a": {
+        "name": "tool-use-grounding",
+        "description": "Methods for enabling LLMs to learn, select, and invoke external tools and APIs, including self-supervised tool learning, code-based action spaces, and tool benchmarks.",
+        "key_papers": [
+          "ARXIV-2302.04761",
+          "ARXIV-2305.15334",
+          "ARXIV-2307.16789",
+          "ARXIV-2402.01030",
+          "ARXIV-2303.17580"
+        ]
+      },
+      "cluster_b": {
+        "name": "multi-agent-frameworks",
+        "description": "Frameworks and architectures for orchestrating multiple LLM agents including conversation-based, SOP-based, role-playing, and hierarchical multi-agent systems for collaborative task solving.",
+        "key_papers": [
+          "ARXIV-2308.08155",
+          "ARXIV-2308.00352",
+          "ARXIV-2307.07924",
+          "ARXIV-2308.10848",
+          "ARXIV-2410.10762"
+        ]
+      },
+      "novelty_score": 8.5,
+      "novelty_justification": "Zero cross-cluster citation edges between tool-use-grounding (7 papers) and multi-agent-frameworks (18 papers) despite both being the two most populated clusters. Co-citation proximity is zero. HuggingGPT (ARXIV-2303.17580) uses an LLM as a controller to orchestrate tool-bearing models but treats the controller as a single agent. No paper models the scenario where Agent-A needs a calculator while Agent-B simultaneously needs a search API, with rate limits and shared state. This is especially relevant as interoperability protocols (MCP, A2A) emerge but lack multi-agent coordination semantics.",
+      "evidence": [
+        "ARXIV-2302.04761",
+        "ARXIV-2307.16789",
+        "ARXIV-2308.08155",
+        "ARXIV-2308.00352",
+        "ARXIV-2402.01030"
+      ],
+      "feasibility": {
+        "score": 8,
+        "assessment": "Both clusters provide baseline papers for comparison. ToolBench (16,464 APIs) and existing multi-agent frameworks (AutoGen, MetaGPT) are publicly available. Gap is well-scoped between two defined clusters. A single author could implement a tool coordination layer atop AutoGen with 3-4 coordination strategies (centralized registry, distributed negotiation, capability-based routing) and benchmark against independent tool access. Main challenge: designing realistic multi-agent scenarios where tool coordination genuinely matters.",
+        "required_resources": [
+          "Baseline implementations from both clusters (ToolLLM/ToolBench + AutoGen/MetaGPT)",
+          "Public API benchmark (ToolBench with 16,464 APIs)",
+          "Multi-agent task scenarios requiring concurrent tool access",
+          "API access for LLM evaluation (if applicable)"
+        ]
+      },
+      "recommended_framing": "Introduce a multi-agent tool coordination framework that sits between the orchestration layer and tool APIs, providing: (1) a shared tool registry with capability descriptions and access policies, (2) a coordination protocol for resolving concurrent tool requests (priority-based, negotiation-based, or queue-based), and (3) tool delegation routing that matches agent specialization to tool capabilities. Evaluate on multi-agent coding tasks (where agents need shared file system access), multi-agent research tasks (shared search/retrieval), and multi-agent data analysis (shared database queries), comparing coordinated vs. uncoordinated tool access.",
+      "confidence": "HIGH"
+    },
+    {
+      "gap_id": "GAP-004",
+      "description": "Multi-agent debate, consensus protocols, and divergent thinking mechanisms have been proposed as inter-agent communication strategies, but their evaluation remains ad-hoc and confounded. The only systematic comparison (ARXIV-2311.08590) found that most debate frameworks do not consistently outperform Chain-of-Thought baselines, yet no benchmark isolates communication protocol effectiveness from underlying model capabilities. No evaluation framework tests when debate outperforms consensus, when divergent thinking helps versus hurts, or how emerging interoperability protocols (MCP, A2A) affect end-to-end task performance.",
+      "cluster_a": {
+        "name": "agent-communication",
+        "description": "Inter-agent communication mechanisms including multi-agent debate, consensus protocols, cooperative coordination, divergent thinking, and standardized interoperability protocols (MCP, A2A).",
+        "key_papers": [
+          "ARXIV-2305.14325",
+          "ARXIV-2309.13007",
+          "ARXIV-2311.08590",
+          "ARXIV-2402.12254",
+          "ARXIV-2505.02279"
+        ]
+      },
+      "cluster_b": {
+        "name": "evaluation-benchmarks",
+        "description": "Benchmarks and evaluation frameworks for assessing LLM agent capabilities across coding, web navigation, general assistance, and multi-turn interaction scenarios.",
+        "key_papers": [
+          "ARXIV-2308.03688",
+          "ARXIV-2310.06692",
+          "ARXIV-2311.12983",
+          "ARXIV-2307.13854",
+          "ARXIV-2401.13178"
+        ]
+      },
+      "novelty_score": 8.5,
+      "novelty_justification": "Zero cross-cluster citation edges between agent-communication (7 papers) and evaluation-benchmarks (6 papers). Co-citation proximity is zero. The MAD analysis paper (ARXIV-2311.08590) provides negative results on debate but uses non-standardized evaluation. The evaluation survey (ARXIV-2507.21504) organizes evaluation along capabilities but does not address communication-specific metrics. No paper proposes metrics for communication efficiency (tokens per consensus), information gain per round, or failure-to-converge rates.",
+      "evidence": [
+        "ARXIV-2305.14325",
+        "ARXIV-2311.08590",
+        "ARXIV-2309.13007",
+        "ARXIV-2505.02279",
+        "ARXIV-2308.03688"
+      ],
+      "feasibility": {
+        "score": 9,
+        "assessment": "Both clusters provide baseline papers for comparison. Public benchmarks (AgentBench, GAIA) and communication protocol implementations (debate, ReConcile) are available. Gap is well-scoped between two defined clusters. Related work involves smaller teams (debate papers average 5-7 authors). Single-author execution is highly feasible: implement 3-4 communication protocols as interchangeable modules and benchmark on existing tasks. The evaluation framework design is the core contribution, not system building.",
+        "required_resources": [
+          "Baseline communication protocol implementations (debate, consensus, ReConcile)",
+          "Public benchmark tasks (GAIA, AgentBench subset, math reasoning)",
+          "Metrics framework for communication efficiency (token cost, rounds, convergence)",
+          "API access for LLM evaluation (if applicable)"
+        ]
+      },
+      "recommended_framing": "Design a communication protocol evaluation framework (CommBench) that isolates communication strategy effectiveness from model capability by holding the underlying LLM constant and varying only the inter-agent communication protocol. Test 4 protocols (independent, round-robin debate, confidence-weighted consensus, divergent-then-convergent) across 3 task categories (factual QA, mathematical reasoning, open-ended generation) with metrics spanning accuracy, token efficiency, convergence rate, and failure-to-agree frequency. The hypothesis is that optimal communication protocol is task-type dependent: debate helps on adversarial/factual tasks but hurts on creative/open-ended tasks.",
+      "confidence": "MEDIUM"
+    },
+    {
+      "gap_id": "GAP-005",
+      "description": "MAST identifies 14 failure modes across 7 multi-agent frameworks and Who&When builds automated failure attribution methods, but both papers diagnose failures post-hoc without proposing architectural solutions. No multi-agent framework (AutoGen, MetaGPT, ChatDev, etc.) incorporates runtime failure detection, graceful degradation, or automatic agent replacement. The gap between diagnosing multi-agent failures and building failure-resilient orchestration systems remains entirely unaddressed despite 18 framework papers and 4 failure analysis papers.",
+      "cluster_a": {
+        "name": "multi-agent-frameworks",
+        "description": "Frameworks and architectures for orchestrating multiple LLM agents including conversation-based, SOP-based, role-playing, and hierarchical multi-agent systems for collaborative task solving.",
+        "key_papers": [
+          "ARXIV-2308.08155",
+          "ARXIV-2308.00352",
+          "ARXIV-2307.07924",
+          "ARXIV-2308.10848",
+          "ARXIV-2310.02170"
+        ]
+      },
+      "cluster_b": {
+        "name": "failure-robustness",
+        "description": "Analysis and mitigation of LLM agent failures including failure taxonomies, automated attribution, debugging frameworks, and safety evaluation of deployed systems.",
+        "key_papers": [
+          "ARXIV-2509.25370",
+          "ARXIV-2505.xxxxx",
+          "ARXIV-2503.13657",
+          "ARXIV-2602.17753"
+        ]
+      },
+      "novelty_score": 7.0,
+      "novelty_justification": "Two bridging papers exist (MAST references AutoGen and MetaGPT), reducing the direct paper absence score. However, these bridges are diagnostic only: MAST analyzes failures in existing frameworks but does not modify them. Co-citation proximity is low but non-zero (MAST co-cites AutoGen and MetaGPT). The gap is in the prescriptive direction: translating failure taxonomy knowledge into architectural patterns for resilient orchestration. The 2025 AI Agent Index (ARXIV-2602.17753) documents deployed systems but notes limited safety mechanisms.",
+      "evidence": [
+        "ARXIV-2503.13657",
+        "ARXIV-2505.xxxxx",
+        "ARXIV-2308.08155",
+        "ARXIV-2509.25370",
+        "ARXIV-2602.17753"
+      ],
+      "feasibility": {
+        "score": 8,
+        "assessment": "Both clusters provide baseline papers for comparison. MAST-Data (1600+ annotated traces) and AgentErrorBench provide failure trajectory data. AutoGen and MetaGPT are open-source and modifiable. Gap is well-scoped between two defined clusters. A single author could implement resilience patterns (circuit breakers, agent hot-swap, checkpoint-restart) atop AutoGen and evaluate on MAST-Data failure scenarios. Related work involves larger teams; may need scope reduction to 2-3 resilience patterns.",
+        "required_resources": [
+          "Baseline implementations from both clusters (AutoGen/MetaGPT + MAST failure taxonomy)",
+          "Failure trajectory datasets (MAST-Data with 1600+ traces)",
+          "Open-source framework source code for modification (AutoGen, MetaGPT)",
+          "API access for LLM evaluation (if applicable)"
+        ]
+      },
+      "recommended_framing": "Extend a multi-agent framework (AutoGen) with a resilience layer implementing three failure recovery patterns derived from MAST's taxonomy: (1) circuit-breaker pattern for agents exhibiting repeated failures (maps to MAST's 'task verification' failures), (2) agent hot-swap that replaces a failing agent with a differently-prompted backup (maps to 'inter-agent misalignment'), and (3) checkpoint-restart for system design failures. Evaluate on MAST-Data failure trajectories measuring recovery rate, task completion improvement, and overhead cost. The hypothesis is that lightweight resilience patterns recover 40-60% of multi-agent failures identified by MAST with less than 20% token overhead.",
+      "confidence": "MEDIUM"
+    }
+  ],
+  "analysis_metadata": {
+    "papers_analyzed": 54,
+    "clusters_identified": 7,
+    "citation_edges_mapped": 43,
+    "sparse_regions_found": 14
+  },
+  "generated_at": "2026-03-15T18:00:00Z"
+}
