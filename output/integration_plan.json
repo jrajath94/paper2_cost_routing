@@ -1,0 +1,121 @@
+{
+  "terminology": {
+    "our_method": "CostRouter",
+    "topology": "orchestration topology: the structural pattern governing how multiple LLM agents are organized, communicate, and coordinate to solve a task (e.g., flat, hierarchical, debate)",
+    "cost_quality_tradeoff": "the fundamental tension between reducing token cost (by using simpler topologies) and maintaining task accuracy (which may require complex topologies)",
+    "difficulty_estimation": "the process of predicting a query's difficulty from its embedding, used to select the appropriate topology without executing all candidates",
+    "quality_threshold": "tau: the minimum acceptable accuracy for a query, below which CostRouter escalates to a more expensive topology",
+    "pareto_frontier": "the set of topology configurations that are not dominated on both cost and quality dimensions simultaneously; CostRouter routes queries along this frontier",
+    "topology_cost_algebra": "the formal decomposition of multi-agent token cost by structural parameters: agents (N), rounds (R), depth (D), and context growth rate",
+    "flat_topology": "single LLM call or minimal multi-turn conversation; cost = c_base; highest efficiency, lowest capability ceiling",
+    "hierarchical_topology": "planner-worker structure where a coordinator decomposes tasks into subtasks assigned to specialists; cost = c_base * N * D",
+    "debate_topology": "multi-agent debate where agents propose, critique, and refine answers across rounds; cost = c_base * N^2 * R",
+    "cost_model": "the analytical model predicting total token cost for a topology-query pair from structural parameters alone, without execution",
+    "difficulty_score": "d in [0,1]: the estimated probability that a query requires a complex topology for correct resolution",
+    "routing_policy": "the decision function that maps (query, topology_pool, tau) to the selected topology, minimizing expected cost subject to quality >= tau",
+    "cost_reduction": "percentage decrease in total token cost relative to the best fixed-topology baseline at matched accuracy",
+    "backbone_llm": "the underlying language model (GPT-4o) held constant across all topologies to isolate structural effects"
+  },
+  "narrative_arc": {
+    "problem": "Multi-agent LLM deployments incur 6-24x token cost overhead depending on topology choice (flat vs hierarchical vs debate), yet practitioners select topologies without cost awareness. The cost multiplier is structural and predictable, but no existing system exploits this for per-query cost optimization.",
+    "gap": "Model-level routing (FrugalGPT, RouteLLM, AutoMix) optimizes which LLM to call but ignores topology structure. Topology optimization (AgentBalance, BAMAS, MASS) tunes structure offline but does not perform per-query routing. No system combines topology cost modeling with per-query difficulty-aware routing.",
+    "insight": "Topology cost is a structural property independent of the backbone LLM: a 3-agent debate with 4 rounds always costs ~24x a single call, regardless of whether the backbone is GPT-4o or Claude. But the accuracy benefit of that 24x cost varies dramatically with query difficulty. This means topology cost is predictable before execution, and the cost-quality tradeoff can be navigated per-query by estimating difficulty and selecting the cheapest topology that meets a quality threshold.",
+    "method": "CostRouter decomposes multi-agent token cost with a topology cost algebra (flat=c_base, hierarchical=c_base*N*D, debate=c_base*N^2*R). A lightweight difficulty estimator (classifier on query embeddings) predicts query difficulty. The routing policy selects the cheapest topology whose expected quality exceeds the threshold tau, navigating the Pareto frontier per-query. Router overhead is <0.1% of total cost.",
+    "evidence": "Across 4 benchmarks (GAIA, MATH, HumanEval, WebArena), CostRouter achieves 40-60% token cost reduction at equivalent accuracy compared to the best fixed-topology baseline. The topology cost algebra predicts actual costs with R^2 > 0.95. Ablation studies confirm each component (cost model, difficulty estimator, quality threshold) contributes. CostRouter approaches oracle routing performance within 8-12%.",
+    "implication": "Cost-aware topology routing makes multi-agent systems viable for resource-constrained deployments. The topology cost algebra generalizes beyond CostRouter as a planning tool for any multi-agent system. Future work: joint model-topology co-routing, online difficulty adaptation, learned topology synthesis beyond fixed pools."
+  },
+  "section_map": [
+    {
+      "section_id": "introduction",
+      "agent": "paper-section-writer",
+      "citation_density_target": "5-8",
+      "word_count_target": 1000,
+      "figure_slots": ["fig:topology_cost_decomposition"],
+      "narrative_role": "insight + problem + contributions",
+      "depends_on": [],
+      "key_terminology": ["our_method", "topology", "cost_quality_tradeoff", "topology_cost_algebra", "difficulty_estimation", "quality_threshold"]
+    },
+    {
+      "section_id": "related_work",
+      "agent": "paper-section-writer",
+      "citation_density_target": "15-25",
+      "word_count_target": 1200,
+      "figure_slots": [],
+      "narrative_role": "gap: model-level routing ignores topology; topology optimization ignores per-query routing; no system bridges both",
+      "depends_on": ["introduction"],
+      "key_terminology": ["topology", "cost_quality_tradeoff", "flat_topology", "hierarchical_topology", "debate_topology", "difficulty_estimation", "pareto_frontier"]
+    },
+    {
+      "section_id": "methods",
+      "agent": "paper-section-writer",
+      "citation_density_target": "3-5",
+      "word_count_target": 1800,
+      "figure_slots": ["fig:architecture", "alg:routing"],
+      "narrative_role": "method: topology cost algebra + difficulty estimator + routing policy + theoretical bound",
+      "depends_on": ["introduction", "related_work"],
+      "key_terminology": ["our_method", "topology_cost_algebra", "cost_model", "difficulty_score", "difficulty_estimation", "routing_policy", "quality_threshold", "pareto_frontier", "flat_topology", "hierarchical_topology", "debate_topology"]
+    },
+    {
+      "section_id": "experiments",
+      "agent": "paper-section-writer",
+      "citation_density_target": "2-4",
+      "word_count_target": 1000,
+      "figure_slots": ["tab:setup"],
+      "narrative_role": "method (practical): benchmarks, topologies, baselines, metrics, implementation",
+      "depends_on": ["methods"],
+      "key_terminology": ["our_method", "backbone_llm", "flat_topology", "hierarchical_topology", "debate_topology", "quality_threshold"]
+    },
+    {
+      "section_id": "results",
+      "agent": "paper-section-writer",
+      "citation_density_target": "2-4",
+      "word_count_target": 1100,
+      "figure_slots": ["tab:main_results", "fig:pareto_frontier", "fig:cost_model_accuracy", "fig:ablation"],
+      "narrative_role": "evidence: cost model validation + main comparison + Pareto analysis + ablation + scaling",
+      "depends_on": ["methods", "experiments"],
+      "key_terminology": ["our_method", "cost_reduction", "cost_model", "pareto_frontier", "topology_cost_algebra", "difficulty_estimation"]
+    },
+    {
+      "section_id": "discussion",
+      "agent": "paper-section-writer",
+      "citation_density_target": "5-8",
+      "word_count_target": 800,
+      "figure_slots": [],
+      "narrative_role": "implication: insight validation + failure analysis + limitations + broader impact",
+      "depends_on": ["results"],
+      "key_terminology": ["our_method", "cost_quality_tradeoff", "topology_cost_algebra", "difficulty_estimation"]
+    },
+    {
+      "section_id": "conclusion",
+      "agent": "paper-section-writer",
+      "citation_density_target": "1-3",
+      "word_count_target": 400,
+      "figure_slots": [],
+      "narrative_role": "implication (condensed): contributions restated + future directions",
+      "depends_on": ["discussion"],
+      "key_terminology": ["our_method", "topology_cost_algebra", "cost_reduction"]
+    }
+  ],
+  "cross_section_constraints": [
+    "TERMINOLOGY: All sections must use 'CostRouter' (capitalized, one word) when referring to our method. Never 'Cost Router', 'cost-router', 'our router', or 'the router'.",
+    "TOPOLOGY NAMES: The 3 topology families must be referred to consistently: 'flat topology', 'hierarchical topology', 'debate topology'. No abbreviations or alternative names across sections.",
+    "COST ALGEBRA NOTATION: Token cost formulas must use the notation defined in Methods Section 3.1: c_base for base cost, N for agents, D for depth, R for rounds. Introduction may use prose but must foreshadow this notation.",
+    "QUALITY THRESHOLD: The threshold parameter must be called 'tau' (Greek letter in LaTeX: \\tau) in all sections. Never 'quality cutoff', 'accuracy floor', or other synonyms.",
+    "DIFFICULTY SCORE: The difficulty estimate must be called 'd' (lowercase) in all sections, defined as d in [0,1]. Never 'complexity score' or 'hardness estimate'.",
+    "BENCHMARK NAMES: Always use official names: 'GAIA', 'MATH', 'HumanEval', 'WebArena'. Always list in this canonical order when enumerating all four.",
+    "COST REDUCTION CLAIM: The '40-60% cost reduction' claim in Introduction must be the exact range reported in Results. If experiments yield a different range, update both sections simultaneously.",
+    "BASELINE CONSISTENCY: Baseline names and descriptions in Experiments Section 4.4 must match exactly in Results tables and Discussion references. The 6 baselines: always-flat, always-hierarchical, always-debate, FrugalGPT-adapted, BAMAS-adapted, oracle.",
+    "STATISTICAL REPORTING: All performance comparisons must include 95% confidence intervals and p-values. Results and Discussion must use consistent significance threshold (p < 0.05).",
+    "BACKBONE CONTROL: All sections must clearly state that the backbone LLM (GPT-4o) is held constant across all topologies. Experiments and Discussion must note this as both a strength (controlled comparison) and limitation (single backbone).",
+    "LIMITATIONS SCOPE: Discussion Section 6.3 must address at minimum: fixed topology catalog, single backbone LLM, English-only benchmarks, difficulty estimator data requirements, no latency optimization.",
+    "ANONYMOUS SUBMISSION: No author names, institution names, or identifying GitHub URLs. Self-citations in third person. Double-blind per ICML 2026 rules."
+  ],
+  "abstract_status": "deferred_to_post_draft",
+  "neurips_checklist_slots": {
+    "limitations": "discussion",
+    "broader_impact": "discussion",
+    "reproducibility": "experiments",
+    "ethics": "discussion"
+  },
+  "generated_at": "2026-03-16T12:00:00Z"
+}
