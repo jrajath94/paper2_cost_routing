@@ -1,0 +1,2118 @@
+{
+  "experiment": "CostRouter Routing Simulation",
+  "date": "2026-03-16",
+  "description": "Simulates routing 82 OrchestraBench tasks through 7 strategies to measure cost vs accuracy tradeoffs",
+  "task_count": 82,
+  "task_breakdown": {
+    "easy": 12,
+    "medium": 23,
+    "hard": 47
+  },
+  "topology_priors": {
+    "flat": {
+      "D": 0.3,
+      "I": 0.3,
+      "T": 0.5
+    },
+    "hierarchical": {
+      "D": 0.8,
+      "I": 0.3,
+      "T": 0.5
+    },
+    "debate": {
+      "D": 0.3,
+      "I": 0.8,
+      "T": 0.3
+    }
+  },
+  "token_cost_defaults": {
+    "easy": {
+      "flat": 1704,
+      "hierarchical": 1500,
+      "debate": 1325
+    },
+    "medium": {
+      "flat": 2360,
+      "hierarchical": 4420,
+      "debate": 4380
+    },
+    "hard": {
+      "flat": 2490,
+      "hierarchical": 4770,
+      "debate": 4710
+    }
+  },
+  "strategies": [
+    {
+      "name": "always-flat",
+      "total_tokens": 188250,
+      "correct_tasks": 24,
+      "total_tasks": 82,
+      "accuracy": 0.2927,
+      "cost_per_correct": 7843.8,
+      "routing_decisions": {
+        "flat": 82,
+        "hierarchical": 0,
+        "debate": 0
+      }
+    },
+    {
+      "name": "always-hierarchical",
+      "total_tokens": 334400,
+      "correct_tasks": 49,
+      "total_tasks": 82,
+      "accuracy": 0.5976,
+      "cost_per_correct": 6824.5,
+      "routing_decisions": {
+        "flat": 0,
+        "hierarchical": 82,
+        "debate": 0
+      }
+    },
+    {
+      "name": "always-debate",
+      "total_tokens": 329100,
+      "correct_tasks": 53,
+      "total_tasks": 82,
+      "accuracy": 0.6463,
+      "cost_per_correct": 6209.4,
+      "routing_decisions": {
+        "flat": 0,
+        "hierarchical": 0,
+        "debate": 82
+      }
+    },
+    {
+      "name": "CostRouter (q*=0.5)",
+      "total_tokens": 320150,
+      "correct_tasks": 66,
+      "total_tasks": 82,
+      "accuracy": 0.8049,
+      "cost_per_correct": 4850.8,
+      "routing_decisions": {
+        "flat": 22,
+        "hierarchical": 33,
+        "debate": 27
+      }
+    },
+    {
+      "name": "CostRouter (q*=0.6)",
+      "total_tokens": 338250,
+      "correct_tasks": 69,
+      "total_tasks": 82,
+      "accuracy": 0.8415,
+      "cost_per_correct": 4902.2,
+      "routing_decisions": {
+        "flat": 11,
+        "hierarchical": 36,
+        "debate": 35
+      }
+    },
+    {
+      "name": "CostRouter (q*=0.8)",
+      "total_tokens": 340450,
+      "correct_tasks": 70,
+      "total_tasks": 82,
+      "accuracy": 0.8537,
+      "cost_per_correct": 4863.6,
+      "routing_decisions": {
+        "flat": 15,
+        "hierarchical": 35,
+        "debate": 32
+      }
+    },
+    {
+      "name": "oracle",
+      "total_tokens": 303150,
+      "correct_tasks": 78,
+      "total_tasks": 82,
+      "accuracy": 0.9512,
+      "cost_per_correct": 3886.5,
+      "routing_decisions": {
+        "flat": 21,
+        "hierarchical": 23,
+        "debate": 38
+      }
+    }
+  ],
+  "per_task_routing": [
+    {
+      "task_id": "CODE-01",
+      "routed_to": "flat",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7764,
+          "tokens": 800,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6838,
+          "tokens": 1200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5101,
+          "tokens": 1800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "CODE-02",
+      "routed_to": "flat",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7764,
+          "tokens": 600,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6838,
+          "tokens": 1500,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5101,
+          "tokens": 2200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "REASON-01",
+      "routed_to": "flat",
+      "predicted_acc": 0.7,
+      "actual_correct": true,
+      "tokens": 400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 400,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5101,
+          "tokens": 800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6838,
+          "tokens": 800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "REASON-02",
+      "routed_to": "flat",
+      "predicted_acc": 0.7,
+      "actual_correct": true,
+      "tokens": 350,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 350,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5101,
+          "tokens": 600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6838,
+          "tokens": 600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "RESEARCH-01",
+      "routed_to": "flat",
+      "predicted_acc": 0.7,
+      "actual_correct": true,
+      "tokens": 1500,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 1500,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 2000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2929,
+          "tokens": 1100,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "RESEARCH-02",
+      "routed_to": "flat",
+      "predicted_acc": 0.7,
+      "actual_correct": true,
+      "tokens": 1800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 1800,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 2200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2929,
+          "tokens": 900,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "CODE-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6838,
+      "actual_correct": true,
+      "tokens": 1800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7764,
+          "tokens": 2500,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6838,
+          "tokens": 1800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5101,
+          "tokens": 2400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "CODE-04",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6838,
+      "actual_correct": true,
+      "tokens": 1100,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7764,
+          "tokens": 2000,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6838,
+          "tokens": 1100,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5101,
+          "tokens": 1900,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "REASON-03",
+      "routed_to": "debate",
+      "predicted_acc": 0.6838,
+      "actual_correct": true,
+      "tokens": 1200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 1500,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5101,
+          "tokens": 1500,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6838,
+          "tokens": 1200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "REASON-04",
+      "routed_to": "debate",
+      "predicted_acc": 0.6838,
+      "actual_correct": true,
+      "tokens": 900,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 1000,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5101,
+          "tokens": 800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6838,
+          "tokens": 900,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "RESEARCH-03",
+      "routed_to": "flat",
+      "predicted_acc": 0.7,
+      "actual_correct": false,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 4000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 2000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2929,
+          "tokens": 1100,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "RESEARCH-04",
+      "routed_to": "flat",
+      "predicted_acc": 0.7,
+      "actual_correct": true,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7,
+          "tokens": 4000,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 2500,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2929,
+          "tokens": 1000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-CODE-01",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.85,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.35,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.85,
+          "tokens": 5200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1559,
+          "tokens": 5600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-CODE-02",
+      "routed_to": "debate",
+      "predicted_acc": 0.8197,
+      "actual_correct": true,
+      "tokens": 4200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2841,
+          "tokens": 1800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1268,
+          "tokens": 3800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.8197,
+          "tokens": 4200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-CODE-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7128,
+      "actual_correct": true,
+      "tokens": 4600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3815,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.7128,
+          "tokens": 4600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.3735,
+          "tokens": 4800,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-CODE-04",
+      "routed_to": "debate",
+      "predicted_acc": 0.5757,
+      "actual_correct": false,
+      "tokens": 5000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3597,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4901,
+          "tokens": 5400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5757,
+          "tokens": 5000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-CODE-05",
+      "routed_to": "debate",
+      "predicted_acc": 0.8268,
+      "actual_correct": true,
+      "tokens": 3800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3218,
+          "tokens": 1600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.219,
+          "tokens": 3600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.8268,
+          "tokens": 3800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-CODE-06",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.8586,
+      "actual_correct": true,
+      "tokens": 6200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3917,
+          "tokens": 3200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.8586,
+          "tokens": 6200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1633,
+          "tokens": 5800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-REASON-01",
+      "routed_to": "debate",
+      "predicted_acc": 0.5417,
+      "actual_correct": true,
+      "tokens": 4600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.1754,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.272,
+          "tokens": 4000,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.5417,
+          "tokens": 4600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-REASON-02",
+      "routed_to": "debate",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 3400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3519,
+          "tokens": 1800,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.1225,
+          "tokens": 3200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7764,
+          "tokens": 3400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-REASON-03",
+      "routed_to": "debate",
+      "predicted_acc": 0.7938,
+      "actual_correct": true,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3815,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.3424,
+          "tokens": 3800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7938,
+          "tokens": 4000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-REASON-04",
+      "routed_to": "debate",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 4400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2789,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1225,
+          "tokens": 3600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7764,
+          "tokens": 4400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-REASON-05",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6394,
+      "actual_correct": true,
+      "tokens": 3000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3836,
+          "tokens": 1400,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6394,
+          "tokens": 3000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4615,
+          "tokens": 2800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-REASON-06",
+      "routed_to": "debate",
+      "predicted_acc": 0.636,
+      "actual_correct": true,
+      "tokens": 4800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2567,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.2911,
+          "tokens": 4200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.636,
+          "tokens": 4800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-01",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.55,
+      "actual_correct": true,
+      "tokens": 6000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2911,
+          "tokens": 3200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.55,
+          "tokens": 6000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1325,
+          "tokens": 5400,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-02",
+      "routed_to": "debate",
+      "predicted_acc": 0.3675,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3292,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.2929,
+          "tokens": 4400,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.3675,
+          "tokens": 5200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.539,
+      "actual_correct": true,
+      "tokens": 7200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.25,
+          "tokens": 3600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.539,
+          "tokens": 7200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0,
+          "tokens": 5800,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-04",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.4592,
+      "actual_correct": true,
+      "tokens": 5600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3348,
+          "tokens": 3000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4592,
+          "tokens": 5600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.3126,
+          "tokens": 5200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-01",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.45,
+      "actual_correct": true,
+      "tokens": 5400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.1922,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.45,
+          "tokens": 5400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0931,
+          "tokens": 4600,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-02",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7307,
+      "actual_correct": true,
+      "tokens": 6400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3126,
+          "tokens": 3000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.7307,
+          "tokens": 6400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0292,
+          "tokens": 5200,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.55,
+      "actual_correct": true,
+      "tokens": 5800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2911,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.55,
+          "tokens": 5800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1325,
+          "tokens": 5000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-04",
+      "routed_to": "debate",
+      "predicted_acc": 0.636,
+      "actual_correct": true,
+      "tokens": 4600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3735,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4148,
+          "tokens": 4000,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.636,
+          "tokens": 4600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-01",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7551,
+      "actual_correct": true,
+      "tokens": 5400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3597,
+          "tokens": 3200,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.7551,
+          "tokens": 5400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1515,
+          "tokens": 5800,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-02",
+      "routed_to": "debate",
+      "predicted_acc": 0.8586,
+      "actual_correct": true,
+      "tokens": 4400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3292,
+          "tokens": 2100,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1633,
+          "tokens": 3600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.8586,
+          "tokens": 4400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7551,
+      "actual_correct": true,
+      "tokens": 4200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5417,
+          "tokens": 2400,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.7551,
+          "tokens": 4200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4169,
+          "tokens": 4000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-04",
+      "routed_to": "debate",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 3600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5101,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4615,
+          "tokens": 3800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7764,
+          "tokens": 3600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-05",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.95,
+      "actual_correct": true,
+      "tokens": 5600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.45,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.95,
+          "tokens": 5600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2303,
+          "tokens": 5200,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-06",
+      "routed_to": "debate",
+      "predicted_acc": 0.85,
+      "actual_correct": true,
+      "tokens": 3800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3656,
+          "tokens": 1800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.2567,
+          "tokens": 3200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.85,
+          "tokens": 3800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-07",
+      "routed_to": "debate",
+      "predicted_acc": 0.6258,
+      "actual_correct": false,
+      "tokens": 3800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5641,
+          "tokens": 2600,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6258,
+          "tokens": 4000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6258,
+          "tokens": 3800,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-08",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4523,
+          "tokens": 2900,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.7764,
+          "tokens": 5200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.245,
+          "tokens": 5000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-09",
+      "routed_to": "debate",
+      "predicted_acc": 1.0,
+      "actual_correct": true,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4615,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.2652,
+          "tokens": 3600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 1.0,
+          "tokens": 4000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-10",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7938,
+      "actual_correct": true,
+      "tokens": 5800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3348,
+          "tokens": 3400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.7938,
+          "tokens": 5800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1098,
+          "tokens": 5600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-11",
+      "routed_to": "flat",
+      "predicted_acc": 0.7172,
+      "actual_correct": true,
+      "tokens": 2200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.7172,
+          "tokens": 2200,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6394,
+          "tokens": 3600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5877,
+          "tokens": 3400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-12",
+      "routed_to": "debate",
+      "predicted_acc": 0.5877,
+      "actual_correct": false,
+      "tokens": 5400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4,
+          "tokens": 3000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.5417,
+          "tokens": 5000,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.5877,
+          "tokens": 5400,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-13",
+      "routed_to": "flat",
+      "predicted_acc": 0.6683,
+      "actual_correct": false,
+      "tokens": 2400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.6683,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4901,
+          "tokens": 4200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6258,
+          "tokens": 4000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-14",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6258,
+      "actual_correct": true,
+      "tokens": 4400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5641,
+          "tokens": 2200,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.6258,
+          "tokens": 4400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2929,
+          "tokens": 4000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-CODE-15",
+      "routed_to": "debate",
+      "predicted_acc": 0.4901,
+      "actual_correct": true,
+      "tokens": 5800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2319,
+          "tokens": 3200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 5400,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.4901,
+          "tokens": 5800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-01",
+      "routed_to": "debate",
+      "predicted_acc": 0.7551,
+      "actual_correct": true,
+      "tokens": 3400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.272,
+          "tokens": 1800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.0619,
+          "tokens": 3200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7551,
+          "tokens": 3400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-02",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6258,
+      "actual_correct": true,
+      "tokens": 4800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4615,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6258,
+          "tokens": 4800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4901,
+          "tokens": 4600,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-03",
+      "routed_to": "debate",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 2800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3519,
+          "tokens": 1600,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.245,
+          "tokens": 3000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.7764,
+          "tokens": 2800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-04",
+      "routed_to": "debate",
+      "predicted_acc": 0.6394,
+      "actual_correct": false,
+      "tokens": 3000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.531,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.5877,
+          "tokens": 3200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.6394,
+          "tokens": 3000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-05",
+      "routed_to": "debate",
+      "predicted_acc": 0.7938,
+      "actual_correct": true,
+      "tokens": 4200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3199,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1559,
+          "tokens": 3800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7938,
+          "tokens": 4200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-06",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4169,
+          "tokens": 2400,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.7,
+          "tokens": 5200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2859,
+          "tokens": 4800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-07",
+      "routed_to": "debate",
+      "predicted_acc": 0.7551,
+      "actual_correct": true,
+      "tokens": 3600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4615,
+          "tokens": 1800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 3400,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7551,
+          "tokens": 3600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-08",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.7551,
+      "actual_correct": true,
+      "tokens": 4600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3597,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.7551,
+          "tokens": 4600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.1515,
+          "tokens": 4400,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-09",
+      "routed_to": "debate",
+      "predicted_acc": 0.7551,
+      "actual_correct": false,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.272,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1754,
+          "tokens": 3600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7551,
+          "tokens": 4000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-10",
+      "routed_to": "debate",
+      "predicted_acc": 0.5757,
+      "actual_correct": true,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3597,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4901,
+          "tokens": 4200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.5757,
+          "tokens": 4000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-11",
+      "routed_to": "debate",
+      "predicted_acc": 0.7172,
+      "actual_correct": true,
+      "tokens": 3600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.2929,
+          "tokens": 3200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7172,
+          "tokens": 3600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-12",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6258,
+      "actual_correct": true,
+      "tokens": 3400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5641,
+          "tokens": 1600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6258,
+          "tokens": 3400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4901,
+          "tokens": 3000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-13",
+      "routed_to": "debate",
+      "predicted_acc": 0.5877,
+      "actual_correct": true,
+      "tokens": 2800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5101,
+          "tokens": 1800,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.4615,
+          "tokens": 3200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.5877,
+          "tokens": 2800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-14",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6394,
+      "actual_correct": true,
+      "tokens": 4800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3836,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6394,
+          "tokens": 4800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4615,
+          "tokens": 4600,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-REASON-15",
+      "routed_to": "debate",
+      "predicted_acc": 0.7764,
+      "actual_correct": true,
+      "tokens": 3800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3519,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1225,
+          "tokens": 3400,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.7764,
+          "tokens": 3800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-01",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6,
+      "actual_correct": true,
+      "tokens": 5400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3597,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6,
+          "tokens": 5400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0726,
+          "tokens": 5000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-02",
+      "routed_to": "flat",
+      "predicted_acc": 0.4615,
+      "actual_correct": false,
+      "tokens": 2000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4615,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4169,
+          "tokens": 4200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.4523,
+          "tokens": 4000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6225,
+      "actual_correct": true,
+      "tokens": 5600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2982,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6225,
+          "tokens": 5600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0,
+          "tokens": 5200,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-04",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5877,
+      "actual_correct": true,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.531,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.5877,
+          "tokens": 4000,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4615,
+          "tokens": 3800,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-05",
+      "routed_to": "debate",
+      "predicted_acc": 0.3917,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3519,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.245,
+          "tokens": 4800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.3917,
+          "tokens": 5200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-06",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6258,
+      "actual_correct": true,
+      "tokens": 4200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4615,
+          "tokens": 2000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6258,
+          "tokens": 4200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.2929,
+          "tokens": 3800,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-07",
+      "routed_to": "debate",
+      "predicted_acc": 0.5877,
+      "actual_correct": true,
+      "tokens": 5000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3675,
+          "tokens": 2200,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.1938,
+          "tokens": 4600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.5877,
+          "tokens": 5000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-08",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5847,
+      "actual_correct": true,
+      "tokens": 5600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3126,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.5847,
+          "tokens": 5600,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0931,
+          "tokens": 5200,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-09",
+      "routed_to": "debate",
+      "predicted_acc": 0.6258,
+      "actual_correct": false,
+      "tokens": 3600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5417,
+          "tokens": 1800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4901,
+          "tokens": 3800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.6258,
+          "tokens": 3600,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-RES-10",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5641,
+      "actual_correct": false,
+      "tokens": 4000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4169,
+          "tokens": 2200,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5641,
+          "tokens": 4000,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.3292,
+          "tokens": 3600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-01",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5417,
+      "actual_correct": false,
+      "tokens": 5600,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2517,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.5417,
+          "tokens": 5600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.1,
+          "tokens": 5400,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-02",
+      "routed_to": "debate",
+      "predicted_acc": 0.4169,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3443,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.3836,
+          "tokens": 5000,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.4169,
+          "tokens": 5200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-03",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.6464,
+      "actual_correct": true,
+      "tokens": 5400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3481,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.6464,
+          "tokens": 5400,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0753,
+          "tokens": 5000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-04",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.4255,
+      "actual_correct": false,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3072,
+          "tokens": 2800,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.4255,
+          "tokens": 5200,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.272,
+          "tokens": 5600,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-05",
+      "routed_to": "debate",
+      "predicted_acc": 0.55,
+      "actual_correct": true,
+      "tokens": 5000,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3815,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.3424,
+          "tokens": 4800,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.55,
+          "tokens": 5000,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-06",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.539,
+      "actual_correct": true,
+      "tokens": 5800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3199,
+          "tokens": 3000,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.539,
+          "tokens": 5800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0876,
+          "tokens": 5400,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-07",
+      "routed_to": "debate",
+      "predicted_acc": 0.4804,
+      "actual_correct": true,
+      "tokens": 5200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.3218,
+          "tokens": 2400,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.219,
+          "tokens": 4600,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.4804,
+          "tokens": 5200,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-08",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5613,
+      "actual_correct": true,
+      "tokens": 5800,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.2303,
+          "tokens": 2600,
+          "actual": false
+        },
+        "hierarchical": {
+          "pred_acc": 0.5613,
+          "tokens": 5800,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.0,
+          "tokens": 5400,
+          "actual": true
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-09",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5613,
+      "actual_correct": true,
+      "tokens": 4200,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.5076,
+          "tokens": 2200,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5613,
+          "tokens": 4200,
+          "actual": true
+        },
+        "debate": {
+          "pred_acc": 0.4234,
+          "tokens": 4000,
+          "actual": false
+        }
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-10",
+      "routed_to": "hierarchical",
+      "predicted_acc": 0.5847,
+      "actual_correct": false,
+      "tokens": 4400,
+      "all_options": {
+        "flat": {
+          "pred_acc": 0.4321,
+          "tokens": 2400,
+          "actual": true
+        },
+        "hierarchical": {
+          "pred_acc": 0.5847,
+          "tokens": 4400,
+          "actual": false
+        },
+        "debate": {
+          "pred_acc": 0.2567,
+          "tokens": 4000,
+          "actual": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "cost_savings_vs_debate": "2.7%",
+    "accuracy_gain_vs_debate": "+15.9pp",
+    "efficiency_gain_vs_debate": "21.9%",
+    "best_costrouter_efficiency": "CostRouter (q*=0.5)",
+    "best_costrouter_accuracy": "CostRouter (q*=0.8)",
+    "oracle_tokens": 303150,
+    "oracle_accuracy": 0.9512,
+    "key_finding": "CostRouter (q*=0.5) saves 2.7% tokens vs always-debate while gaining +15.9pp accuracy by routing easy tasks to flat. Cost-per-correct improves by 21.9% (4851 vs 6209 tokens/correct)."
+  }
+}
