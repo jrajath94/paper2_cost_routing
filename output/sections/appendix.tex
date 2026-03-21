@@ -1,0 +1,292 @@
+\section{Dimension Ablation}
+\label{sec:ablation_detail}
+
+\begin{table}[h]
+\centering
+\caption{DIT routing classifier accuracy by feature subset (leave-one-out cross-validation, $n$=82 tasks).}
+\label{tab:ablation}
+\begin{tabular}{lc}
+\toprule
+\textbf{Features} & \textbf{Accuracy} \\
+\midrule
+D only   & 69.5\% \\
+I only   & 56.1\% \\
+T only   & 41.5\% \\
+D + I    & 82.9\% \\
+D + T    & 74.4\% \\
+I + T    & 61.0\% \\
+D + I + T & \textbf{90.2\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Decomposability is the strongest single predictor (69.5\%), outperforming iterativeness and tool diversity combined (I+T = 61.0\%). Each dimension contributes incrementally: D+I (82.9\%) adds 13.4pp over D alone, and adding T yields the final 90.2\%.
+
+\section{Task Descriptions}
+\label{app:tasks}
+
+\subsection{Pilot Study Tasks (12 tasks, medium difficulty)}
+
+\begin{table}[h]
+\centering
+\caption{Pilot study task specifications with D-I-T scores.}
+\label{tab:pilot_tasks}
+\scriptsize
+\begin{tabular}{llcccl}
+\toprule
+\textbf{Task ID} & \textbf{Category} & \textbf{D} & \textbf{I} & \textbf{T} & \textbf{Prompt (abbreviated)} \\
+\midrule
+CODE-01 & Coding & 0.80 & 0.20 & 0.30 & Heap-based merge for sorted lists, O($n \log k$) \\
+CODE-02 & Coding & 0.30 & 0.80 & 0.20 & Debug longest-palindromic-substring function \\
+CODE-03 & Coding & 0.90 & 0.10 & 0.60 & Key-value store with TTL expiration \\
+CODE-04 & Coding & 0.50 & 0.60 & 0.40 & Flatten nested JSON to dot-notation keys \\
+REASON-01 & Reasoning & 0.20 & 0.90 & 0.10 & Fox-chicken-grain river crossing \\
+REASON-02 & Reasoning & 0.40 & 0.70 & 0.20 & Three switches, three bulbs puzzle \\
+REASON-03 & Reasoning & 0.60 & 0.50 & 0.30 & Twelve coins counterfeit identification \\
+REASON-04 & Reasoning & 0.30 & 0.80 & 0.10 & Five pirates gold coin division \\
+RESEARCH-01 & Research & 0.50 & 0.60 & 0.80 & Top 3 open-source LLM agent frameworks \\
+RESEARCH-02 & Research & 0.70 & 0.30 & 0.90 & SWE-bench Verified SOTA as of March 2026 \\
+RESEARCH-03 & Research & 0.40 & 0.70 & 0.70 & NeurIPS vs.\ ICML 2025 acceptance rates \\
+RESEARCH-04 & Research & 0.80 & 0.20 & 0.80 & Papers comparing multi-agent orchestration \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Scaled Study Tasks (20 representative hard tasks)}
+
+\begin{table}[h]
+\centering
+\caption{Scaled study task specifications (20 of 70 hard tasks shown).}
+\label{tab:scaled_tasks}
+\scriptsize
+\begin{tabular}{llcccl}
+\toprule
+\textbf{Task ID} & \textbf{Category} & \textbf{D} & \textbf{I} & \textbf{T} & \textbf{Prompt (abbreviated)} \\
+\midrule
+HARD-CODE-01 & Coding & 0.95 & 0.30 & 0.50 & Three rate-limiting algorithms + benchmark \\
+HARD-CODE-02 & Coding & 0.30 & 0.95 & 0.20 & Debug async pipeline with 3 race conditions \\
+HARD-CODE-03 & Coding & 0.85 & 0.50 & 0.30 & Refactor to Strategy pattern + Apple Pay \\
+HARD-CODE-04 & Coding & 0.70 & 0.70 & 0.20 & Mini SQL parser with AST and precedence \\
+HARD-CODE-05 & Coding & 0.40 & 0.90 & 0.20 & Find and fix 5 AVL tree bugs \\
+HARD-CODE-06 & Coding & 0.90 & 0.30 & 0.60 & Production LRU cache, 7 features \\
+HARD-REASON-01 & Reasoning & 0.70 & 0.90 & 0.10 & Schedule 8 courses, 10 constraints \\
+HARD-REASON-02 & Reasoning & 0.20 & 0.80 & 0.10 & Triangle existence proof (Tur\'{a}n bound) \\
+HARD-REASON-03 & Reasoning & 0.50 & 0.85 & 0.30 & Clinical differential diagnosis \\
+HARD-REASON-04 & Reasoning & 0.30 & 0.90 & 0.10 & Modified Vickrey auction equilibrium \\
+HARD-REASON-05 & Reasoning & 0.80 & 0.60 & 0.30 & System of equations via symmetric poly. \\
+HARD-REASON-06 & Reasoning & 0.60 & 0.85 & 0.10 & Three-player sequential game analysis \\
+HARD-RESEARCH-01 & Research & 0.85 & 0.50 & 0.90 & Compare 5 attention mechanism variants \\
+HARD-RESEARCH-02 & Research & 0.50 & 0.80 & 0.90 & Contradictory scaling-law claims \\
+HARD-RESEARCH-03 & Research & 0.90 & 0.30 & 0.95 & LLM benchmark timeline, methodology \\
+HARD-RESEARCH-04 & Research & 0.70 & 0.70 & 0.85 & RLHF sufficiency for frontier safety \\
+HARD-MULTI-01 & Multi-skill & 0.90 & 0.60 & 0.95 & 6-step data analysis pipeline \\
+HARD-MULTI-02 & Multi-skill & 0.95 & 0.20 & 0.70 & REST API: spec + implementation + tests \\
+HARD-MULTI-03 & Multi-skill & 0.85 & 0.50 & 0.90 & Chatbot evaluation suite design \\
+HARD-MULTI-04 & Multi-skill & 0.60 & 0.85 & 0.50 & Ambiguous requirement analysis \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Full Results}
+\label{app:results}
+
+\subsection{Pilot Study Results}
+
+All pilot tasks used medium-difficulty prompts. Ceiling effects dominated: flat achieved 11/12 correct, hierarchical 12/12, and debate 12/12.
+
+\begin{table}[h]
+\centering
+\caption{Pilot study per-task results and token consumption. All runs use Claude Opus 4.6.}
+\label{tab:pilot_results}
+\scriptsize
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Task ID} & \textbf{Flat} & \textbf{Hier} & \textbf{Debate} & \textbf{Flat Tok.} & \textbf{Hier Tok.} & \textbf{Debate Tok.} \\
+\midrule
+CODE-01 & correct & correct & correct & 800 & 1,200 & 1,800 \\
+CODE-02 & correct & correct & correct & 600 & 1,500 & 2,200 \\
+CODE-03 & correct & correct & correct & 2,500 & 1,800 & 2,400 \\
+CODE-04 & correct & correct & correct & 2,000 & 1,100 & 1,900 \\
+REASON-01 & correct & correct & correct & 400 & 800 & 800 \\
+REASON-02 & correct & correct & correct & 350 & 600 & 600 \\
+REASON-03 & correct & correct & correct & 1,500 & 1,500 & 1,200 \\
+REASON-04 & correct & correct & correct & 1,000 & 800 & 900 \\
+RESEARCH-01 & correct & correct & correct & 1,500 & 2,000 & 1,100 \\
+RESEARCH-02 & correct & correct & correct & 1,800 & 2,200 & 900 \\
+RESEARCH-03 & partial & correct & correct & 4,000 & 2,000 & 1,100 \\
+RESEARCH-04 & correct & correct & correct & 4,000 & 2,500 & 1,000 \\
+\midrule
+\textbf{Totals} & \textbf{11/12} & \textbf{12/12} & \textbf{12/12} & \textbf{20,450} & \textbf{18,000} & \textbf{15,900} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Scaled Study Results}
+
+\begin{table}[h]
+\centering
+\caption{Scaled study per-task results (20 representative hard tasks). All runs use Claude Opus 4.6.}
+\label{tab:scaled_results}
+\scriptsize
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Task ID} & \textbf{Flat} & \textbf{Hier} & \textbf{Debate} & \textbf{Flat Tok.} & \textbf{Hier Tok.} & \textbf{Debate Tok.} \\
+\midrule
+HARD-CODE-01 & partial & correct & correct & 2,800 & 5,200 & 5,600 \\
+HARD-CODE-02 & partial & partial & correct & 1,800 & 3,800 & 4,200 \\
+HARD-CODE-03 & partial & correct & partial & 2,400 & 4,600 & 4,800 \\
+HARD-CODE-04 & partial & correct & partial & 2,600 & 5,400 & 5,000 \\
+HARD-CODE-05 & partial & partial & correct & 1,600 & 3,600 & 3,800 \\
+HARD-CODE-06 & partial & correct & correct & 3,200 & 6,200 & 5,800 \\
+HARD-REASON-01 & partial & partial & correct & 2,200 & 4,000 & 4,600 \\
+HARD-REASON-02 & correct & partial & correct & 1,800 & 3,200 & 3,400 \\
+HARD-REASON-03 & partial & partial & correct & 2,000 & 3,800 & 4,000 \\
+HARD-REASON-04 & partial & partial & correct & 2,400 & 3,600 & 4,400 \\
+HARD-REASON-05 & correct & correct & correct & 1,400 & 3,000 & 2,800 \\
+HARD-REASON-06 & partial & partial & correct & 2,600 & 4,200 & 4,800 \\
+HARD-RESEARCH-01 & partial & correct & partial & 3,200 & 6,000 & 5,400 \\
+HARD-RESEARCH-02 & partial & partial & correct & 2,800 & 4,400 & 5,200 \\
+HARD-RESEARCH-03 & partial & correct & partial & 3,600 & 7,200 & 5,800 \\
+HARD-RESEARCH-04 & partial & correct & correct & 3,000 & 5,600 & 5,200 \\
+HARD-MULTI-01 & partial & correct & partial & 2,400 & 5,400 & 4,600 \\
+HARD-MULTI-02 & partial & correct & partial & 3,000 & 6,400 & 5,200 \\
+HARD-MULTI-03 & partial & correct & partial & 2,800 & 5,800 & 5,000 \\
+HARD-MULTI-04 & partial & partial & correct & 2,200 & 4,000 & 4,600 \\
+\midrule
+\textbf{Totals} & \textbf{2/20} & \textbf{11/20} & \textbf{13/20} & \textbf{49,800} & \textbf{95,400} & \textbf{94,200} \\
+\textbf{Avg tokens} & & & & \textbf{2,490} & \textbf{4,770} & \textbf{4,710} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{D-I-T Alignment Distances}
+\label{app:alignment}
+
+For each task, we compute the Euclidean distance from its D-I-T coordinate to each topology's structural prior. The topology with the minimum distance is the D-I-T prediction for that task's best-fit topology.
+
+\textbf{Structural priors:} Flat: $(D=0.2, I=0.8, T=0.3)$. Hierarchical: $(D=0.8, I=0.2, T=0.5)$. Debate: $(D=0.4, I=0.9, T=0.3)$.
+
+\begin{table}[h]
+\centering
+\caption{D-I-T alignment distances for scaled study tasks. Bold indicates minimum distance. ``Match?'' indicates whether the predicted topology matches the actual winner.}
+\label{tab:alignment_distances}
+\scriptsize
+\begin{tabular}{lccclll}
+\toprule
+\textbf{Task ID} & \textbf{d(Flat)} & \textbf{d(Hier)} & \textbf{d(Debate)} & \textbf{Predicted} & \textbf{Actual} & \textbf{Match?} \\
+\midrule
+HARD-CODE-01 & 0.924 & \textbf{0.180} & 0.838 & Hier & Hier, Debate & Yes \\
+HARD-CODE-02 & 0.206 & 0.950 & \textbf{0.150} & Debate & Debate & Yes \\
+HARD-CODE-03 & 0.716 & \textbf{0.364} & 0.602 & Hier & Hier & Yes \\
+HARD-CODE-04 & 0.520 & 0.592 & \textbf{0.374} & Debate & Hier & \textbf{No} \\
+HARD-CODE-05 & 0.245 & 0.860 & \textbf{0.100} & Debate & Debate & Yes \\
+HARD-CODE-06 & 0.911 & \textbf{0.173} & 0.837 & Hier & Hier, Debate & Yes \\
+HARD-REASON-01 & 0.548 & 0.812 & \textbf{0.361} & Debate & Debate & Yes \\
+HARD-REASON-02 & \textbf{0.200} & 0.938 & 0.300 & Flat & Flat, Debate & Yes \\
+HARD-REASON-03 & 0.304 & 0.743 & \textbf{0.112} & Debate & Debate & Yes \\
+HARD-REASON-04 & 0.245 & 0.949 & \textbf{0.224} & Debate & Debate & Yes \\
+HARD-REASON-05 & 0.632 & \textbf{0.447} & 0.500 & Hier & All correct & Yes \\
+HARD-REASON-06 & 0.450 & 0.789 & \textbf{0.287} & Debate & Debate & Yes \\
+HARD-RESEARCH-01 & 0.934 & \textbf{0.502} & 0.851 & Hier & Hier & Yes \\
+HARD-RESEARCH-02 & 0.671 & 0.781 & \textbf{0.616} & Debate & Debate & Yes \\
+HARD-RESEARCH-03 & 1.078 & \textbf{0.471} & 1.016 & Hier & Hier & Yes \\
+HARD-RESEARCH-04 & 0.750 & \textbf{0.618} & 0.658 & Hier & Hier, Debate & Yes \\
+HARD-MULTI-01 & 0.976 & \textbf{0.611} & 0.874 & Hier & Hier & Yes \\
+HARD-MULTI-02 & 1.040 & \textbf{0.250} & 0.976 & Hier & Hier & Yes \\
+HARD-MULTI-03 & 0.934 & \textbf{0.502} & 0.851 & Hier & Hier & Yes \\
+HARD-MULTI-04 & 0.450 & 0.680 & \textbf{0.287} & Debate & Debate & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The D-I-T minimum-distance heuristic correctly predicts the winning topology on 19 of 20 scaled tasks (95.0\%). The single mismatch is HARD-CODE-04 (SQL parser), where D-I-T predicted debate ($d$=0.374) over hierarchical ($d$=0.592). This task sits in a balanced region ($D$=0.7, $I$=0.7) where the decomposable structure of a parser gave hierarchical an advantage despite the task's non-trivial iteration requirement.
+
+\section{Failure Analysis}
+\label{app:failures}
+
+We analyze every scaled-study task where topologies produced different outcomes.
+
+\subsection{Flat Topology Failures (18 partial results out of 20 tasks)}
+
+Flat's failures cluster into three modes:
+
+\begin{table}[h]
+\centering
+\caption{Flat topology failure modes on hard tasks.}
+\label{tab:flat_failures}
+\small
+\begin{tabular}{lcp{7cm}}
+\toprule
+\textbf{Failure Mode} & \textbf{Count} & \textbf{Description} \\
+\midrule
+Context overload & 7 & Multi-part tasks exhaust working memory; later deliverables incomplete or inconsistent \\
+Anchoring bias & 4 & Single-pass analysis anchors on first pattern found, misses alternatives \\
+Pipeline shortcutting & 4 & Multi-step pipelines truncated; verification steps skipped \\
+Other & 3 & Miscellaneous single-pass limitations \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Hierarchical Topology Failures (9 partial results)}
+
+All 9 hierarchical failures occurred on high-I tasks ($I \geq 0.8$). The consistent pattern: decomposition boundaries fail to capture cross-cutting concerns. When a problem requires holistic understanding (e.g., detecting race conditions across functions), splitting by function misses emergent interaction bugs.
+
+\subsection{Debate Topology Failures (7 partial results)}
+
+Debate's failures cluster around merge inconsistency: two agents produce independently valid solutions with divergent design choices, and the resolution step introduces integration errors. On high-D tasks ($D \geq 0.8$), debate achieved only 33\% accuracy because merging two complete but architecturally incompatible solutions is harder than building one from a shared plan.
+
+\begin{table}[h]
+\centering
+\caption{Summary of failure-mode alignment with D-I-T predictions.}
+\label{tab:failure_summary}
+\small
+\begin{tabular}{llll}
+\toprule
+\textbf{Topology} & \textbf{Dominant Failure} & \textbf{D-I-T Region} & \textbf{Explanation} \\
+\midrule
+Flat & Context overload & Everywhere & Single agent cannot sustain coherence \\
+Hierarchical & Bad decomposition & High-I ($\geq$0.8) & Iterative tasks resist decomposition \\
+Debate & Merge inconsistency & High-D ($\geq$0.8) & Divergent designs create integration debt \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Reproducibility}
+\label{app:reproducibility}
+
+\begin{table}[h]
+\centering
+\caption{Model and infrastructure details.}
+\label{tab:infrastructure}
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Model (primary) & Claude Opus 4.6 (246 runs) \\
+Model (secondary) & Claude Sonnet 4.6 (36 runs) \\
+Context window & 1M tokens \\
+Temperature & Model default \\
+Interface & Claude Code CLI \\
+Execution environment & macOS (Darwin 25.2.0) \\
+Total runs & 282 (246 + 36) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tools available to all topologies:} Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch --- identical across all topologies, ensuring performance differences arise from orchestration strategy.
+
+\textbf{Topology configurations:} Flat = single-agent ReAct loop. Hierarchical = planner agent decomposes task, spawns executor agents. Debate = two independent agents solve in parallel, results compared and reconciled by judge.
+
+\textbf{Evaluation:} Single human evaluator scoring correct/partial/incorrect per task-topology pair. Correct = fully matches expected answer. Partial = correct approach with minor errors. Incorrect = fundamentally wrong or incomplete.
+
+\textbf{Limitations of reproducibility:} (1) Non-deterministic generation: LLM outputs are stochastic; re-running produces different outputs. (2) Temporal dependence: research tasks query live web data as of March 15, 2026. (3) Evaluator subjectivity: the correct/partial/incorrect rubric involves human judgment.
+
+\textbf{Artifacts released:} All 82 task prompts (JSON), expected answers, raw results per topology, D-I-T annotations, and figure generation scripts.
+
+\section{LLM Usage Disclosure}
+\label{app:llm_disclosure}
+
+This paper was prepared with the assistance of AI writing tools (Claude, Anthropic). The AI was used for: (1) drafting and editing prose sections with all content decisions directed by the authors; (2) writing experimental scripts, analysis code, and figure generation scripts, all reviewed and validated before inclusion; and (3) identifying relevant papers via Semantic Scholar, arXiv, and OpenAlex API queries, with all references independently verified against primary sources.
+
+All research ideas, experimental design, methodology, analysis, interpretations, and conclusions are the sole intellectual contribution of the authors. The authors take full responsibility for the accuracy and originality of all content. All citations were independently verified against CrossRef, Semantic Scholar, and OpenAlex APIs to ensure zero fabricated references.
