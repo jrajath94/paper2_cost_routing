@@ -1,0 +1,27 @@
+Topology cost is structural. Not per-token pricing, not model selection, not prompt length. A three-agent debate running four rounds of critique will consume roughly 24 times the tokens of a single LLM call. This holds whether the backbone is Claude Opus 4.6 or GPT-4o. Swap the model and the per-token price changes, but the multiplicative structure stays fixed; the cost multiplier is baked into the communication pattern before a single token gets generated.
+
+Why does this matter? Because the accuracy gain from that 24x investment varies wildly with the query. On an easy factual question, debate produces the same answer as a flat single-agent call. Twenty-three extra units of token spend bought nothing. On a hard multi-step reasoning problem, adversarial refinement of debate lifts accuracy by 10-15 percentage points over flat execution. Same topology, same cost multiplier, entirely different return on investment.
+
+Practitioners building multi-agent LLM deployments face this tradeoff daily, and most navigate it blindly. The standard approach is to pick one topology for an entire application and live with it. Run everything through a hierarchical planner-worker pipeline \cite{hong_2023}. Or route everything through debate \cite{wang_2024_moa}. The cost consequences are severe: our analysis of three topology families across 82 tasks shows 3x cost variance between the cheapest and most expensive topology on the same task at matched accuracy (Section 5). For organizations spending six or seven figures monthly on LLM APIs, this is not an abstraction.
+
+A related but distinct problem has received more attention. Chen et al.~\cite{chen_2023} introduced FrugalGPT, cascading queries through progressively expensive models and stopping when confidence is sufficient. Ong et al.~\cite{ong_2025} trained RouteLLM to route between strong and weak models using preference data. Ding et al.~\cite{ding_2024} proposed HybridLLM for cost-efficient query routing between local and cloud models. These systems ask: which model should handle this query? They treat the execution structure as fixed (a single call) and optimize the model behind it.
+
+But what if the execution structure is the bigger lever?
+
+Consider a hierarchical topology with $N$ agents and decomposition depth $D$. Its token cost scales as $c_{\text{base}} \cdot N \cdot D$. A debate topology with $N$ agents and $R$ rounds scales as $c_{\text{base}} \cdot N^2 \cdot R$. The gap between these cost functions dwarfs the 2-3x price difference between model tiers. Switching from GPT-4o to GPT-4o-mini saves 2x. Switching from debate to flat on a query that doesn't need debate saves 24x. Topology is the dominant cost variable, and nobody routes over it.
+
+Recent work has started to acknowledge topology as a design variable. Su et al.~\cite{su_2025} proposed difficulty-aware workflow depth adjustment. Yu \cite{yu_2026} formalized task-adaptive topology selection in AdaptOrch. Our own prior work established OrchestraBench \cite{orchestrabench_2026}, showing that topology effectiveness depends on measurable task-structure dimensions. Yet none of these systems combine a formal cost model of topology structure with per-query routing that respects quality constraints. Knowing that topologies cost different amounts is one thing; actually routing queries to the cheapest sufficient topology at inference time is another. That gap remains open.
+
+We close it with three contributions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{A topology cost algebra} that decomposes multi-agent token expenditure from structural parameters alone. Flat topologies cost $c_{\text{base}}$. Hierarchical topologies cost $c_{\text{base}} \cdot N \cdot D$. Debate topologies cost $c_{\text{base}} \cdot N^2 \cdot R$. These formulas are backbone-independent and predict actual token counts with $R^2 > 0.95$.
+\item
+  \textbf{CostRouter}, a per-query topology routing system that estimates task difficulty using a lightweight classifier, predicts expected accuracy per topology, and selects the cheapest topology exceeding a user-specified quality threshold $\tau$. Router overhead is less than 0.1\% of total task cost.
+\item
+  \textbf{Empirical validation across 82 tasks} showing CostRouter achieves 40-60\% token cost reduction at matched accuracy compared to the best fixed-topology baseline. CostRouter traces the Pareto frontier within 8-12\% of oracle routing with perfect hindsight.
+\end{enumerate}
+
+Section 2 positions CostRouter against model-level routing and topology optimization. Section 3 formalizes the cost algebra, difficulty estimator, routing policy, and theoretical savings bound. Section 4 describes the experimental setup, and Sections 5-6 report results and discuss limitations.
