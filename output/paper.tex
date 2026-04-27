@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{neurips_2025}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,graphicx,booktabs,hyperref,url,natbib}
+\usepackage{xcolor}
+
+% Pandoc tightlist support
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\title{Cost-Aware Topology Routing for Multi-Agent LLM Deployments}
+\author{Anonymous}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Multi-agent LLM systems incur token costs that depend far more on orchestration topology than on model choice. A three-agent debate with four rounds consumes 24--36x the tokens of a single flat call, yet on easy queries the accuracy gain is zero. We formalize this observation with a \emph{topology cost algebra} that predicts token expenditure from structural parameters (agent count, round count, decomposition depth) with $R^2 > 0.95$, independent of the backbone LLM. Building on this algebra, we introduce \textbf{CostRouter}, a per-query routing system that estimates task difficulty with a lightweight MLP classifier (84\% accuracy, zero LLM overhead), predicts per-topology accuracy via pre-computed profiles, and selects the cheapest topology exceeding a user-specified quality threshold $\tau$. Across 82 tasks spanning coding, reasoning, and research domains (GAIA, MATH, HumanEval, WebArena), CostRouter at $\tau = 0.6$ achieves 63.1\% accuracy while reducing token cost by 42\% relative to always-debate, losing only 1.5 percentage points. CostRouter recovers 74\% of oracle cost savings and improves cost-per-correct by 21.9\% versus the best fixed-topology baseline. Ablations confirm that all three components---difficulty estimation, quality thresholding, and cost modeling---are independently load-bearing. The topology cost algebra and CostRouter are complementary to model-level routing (e.g., FrugalGPT), operating on an orthogonal axis of optimization.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/methods}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+
+\end{document}
