@@ -1,0 +1,63 @@
+{
+  "round": 3,
+  "timestamp": "2026-03-16T19:45:00Z",
+  "reviewers": {
+    "methodology_skeptic": {
+      "quality": 7,
+      "clarity": 7,
+      "originality": 7,
+      "significance": 7,
+      "overall": 7,
+      "confidence": 4,
+      "delta_from_r2": "+1 quality, +1 originality, +1 significance, +1 overall"
+    },
+    "novelty_assessor": {
+      "quality": 7,
+      "clarity": 7,
+      "originality": 7,
+      "significance": 7,
+      "overall": 7,
+      "confidence": 3,
+      "delta_from_r2": "+1 quality, +1 originality, +1 significance, +1 overall"
+    },
+    "clarity_reviewer": {
+      "quality": 7,
+      "clarity": 8,
+      "originality": 7,
+      "significance": 7,
+      "overall": 7,
+      "confidence": 4,
+      "delta_from_r2": "+1 quality, +1 clarity, +1 significance"
+    }
+  },
+  "aggregate": {
+    "quality": 7.0,
+    "clarity": 7.3,
+    "originality": 7.0,
+    "significance": 7.0,
+    "overall": 7.0
+  },
+  "round_history": [
+    { "round": 1, "aggregate_overall": 5.0 },
+    { "round": 2, "aggregate_overall": 6.3 },
+    { "round": 3, "aggregate_overall": 7.0 }
+  ],
+  "threshold_met": true,
+  "target_threshold": 7.0,
+  "verdict": "accept",
+  "consensus": "unanimous",
+  "max_inter_reviewer_spread": 1,
+  "fatal_flaws": [],
+  "remaining_issues_count": {
+    "critical": 0,
+    "important": 0,
+    "minor_camera_ready": 4
+  },
+  "issues_resolved_this_round": [
+    "Contribution 3 overclaim removed (priority claim -> empirical description)",
+    "Methods/Experiments structural overlap resolved (Section 3.6 removed, 3.5 condensed)",
+    "Discussion 6.1 selection table now uses subset-specific accuracy (23/48)",
+    "T normalization max value (T=6) now stated at first mention in Methods 3.1",
+    "Conclusion hedged with 'initial tools' phrasing"
+  ]
+}

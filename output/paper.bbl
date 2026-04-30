@@ -1,0 +1,177 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Cemri et~al.(2025)Cemri, Pan, Yang, et~al.]{cemri_2025}
+Mert Cemri, Melissa~Z. Pan, Shuyi Yang, et~al.
+\newblock Why do multi-agent llm systems fail?
+\newblock arXiv preprint arXiv:2503.13657, 2025.
+
+\bibitem[Chen et~al.(2024)Chen, Saha, and Bansal]{chen_2024b}
+Justin Chih-Yao Chen, Swarnadeep Saha, and Mohit Bansal.
+\newblock Reconcile: Round-table conference improves reasoning via consensus
+  among diverse llms.
+\newblock In \emph{ACL 2024}, 2024.
+
+\bibitem[Du et~al.(2023)Du, Li, Torralba, Tenenbaum, and Mordatch]{du_2023}
+Yilun Du, Shuang Li, Antonio Torralba, Joshua~B. Tenenbaum, and Igor Mordatch.
+\newblock Improving factuality and reasoning in language models through
+  multiagent debate.
+\newblock In \emph{ICML 2024}, 2023.
+
+\bibitem[Erdogan et~al.(2025)Erdogan, Lee, Joshi, Kim, Gururangan, Gholami, and
+  Keutzer]{erdogan_2025}
+Lutfi~Eren Erdogan, Nicholas Lee, Siddharth Joshi, Ryan Kim, Suchin Gururangan,
+  Amir Gholami, and Kurt Keutzer.
+\newblock Plan-and-act: Improving planning of agents for long-horizon tasks.
+\newblock In \emph{ICML 2025}, 2025.
+
+\bibitem[Hong et~al.(2023)Hong, Zhuge, Chen, Zheng, Cheng, Zhang, Wang, Wang,
+  Yau, Lin, Zhou, Ran, Xiao, Wu, and Schmidhuber]{hong_2023}
+Sirui Hong, Mingchen Zhuge, Jonathan Chen, Xiawu Zheng, Yuheng Cheng, Ceyao
+  Zhang, Jinlin Wang, Zili Wang, Steven Ka~Shing Yau, Zijuan Lin, Liyang Zhou,
+  Chenyu Ran, Lingfeng Xiao, Chenglin Wu, and Jürgen Schmidhuber.
+\newblock Metagpt: Meta programming for a multi-agent collaborative framework.
+\newblock In \emph{ICLR 2024}, 2023.
+
+\bibitem[Jimenez et~al.(2024)Jimenez, Yang, Wettig, Yao, Pei, Press, and
+  Narasimhan]{jimenez_2024}
+Carlos~E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir
+  Press, and Karthik~R. Narasimhan.
+\newblock Swe-bench: Can language models resolve real-world github issues?
+\newblock In \emph{ICLR 2024}, 2024.
+
+\bibitem[Kim et~al.(2024)Kim, Park, Jeong, Chan, Xu, McDuff, Lee, Ghassemi,
+  Breazeal, and Park]{kim_2024}
+Yubin Kim, Chanwoo Park, Hyewon Jeong, Yik~Siu Chan, Xuhai Xu, Daniel McDuff,
+  Hyeonhoon Lee, Marzyeh Ghassemi, Cynthia Breazeal, and Hae~Won Park.
+\newblock Mdagents: An adaptive collaboration of llms for medical
+  decision-making.
+\newblock In \emph{NeurIPS 2024}, 2024.
+
+\bibitem[Li et~al.(2023)Li, Hammoud, Itani, Khizbullin, and Ghanem]{li_2023}
+Guohao Li, Hasan Abed Al~Kader Hammoud, Hani Itani, Dmitrii Khizbullin, and
+  Bernard Ghanem.
+\newblock Camel: Communicative agents for 'mind' exploration of large language
+  model society.
+\newblock In \emph{NeurIPS 2023}, 2023.
+
+\bibitem[Liu et~al.(2023)Liu, Yu, Zhang, Xu, Lei, Lai, Gu, Ding, Men, Yang,
+  Zhang, Deng, Zeng, Du, Zhang, Shen, Zhang, Su, Sun, Huang, Dong, and
+  Tang]{liu_2023}
+Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu~Gu,
+  Hangliang Ding, Kaiwen Men, Kejuan Yang, Shudan Zhang, Xiang Deng, Aohan
+  Zeng, Zhengxiao Du, Chenhui Zhang, Sheng Shen, Tianjun Zhang, Yu~Su, Huan
+  Sun, Minlie Huang, Yuxiao Dong, and Jie Tang.
+\newblock Agentbench: Evaluating llms as agents.
+\newblock In \emph{ICLR 2024}, 2023.
+
+\bibitem[Liu et~al.(2024)Liu, Zhang, Li, Liu, and Yang]{liu_2024}
+Zijun Liu, Yanzhe Zhang, Peng Li, Yang Liu, and Diyi Yang.
+\newblock Dynamic llm-agent network: An llm-agent collaboration framework with
+  agent team optimization.
+\newblock In \emph{COLM 2024}, 2024.
+
+\bibitem[Mialon et~al.(2023)Mialon, Fourrier, Swift, Wolf, LeCun, and
+  Scialom]{mialon_2023}
+Grégoire Mialon, Clémentine Fourrier, Craig Swift, Thomas Wolf, Yann LeCun,
+  and Thomas Scialom.
+\newblock Gaia: A benchmark for general ai assistants.
+\newblock arXiv preprint arXiv:2311.12983, 2023.
+
+\bibitem[Mohammadi et~al.(2025)]{mohammadi_2025}
+Mahmoud Mohammadi et~al.
+\newblock Evaluation and benchmarking of llm agents: A survey.
+\newblock In \emph{KDD 2025}, 2025.
+\newblock \doi{10.1145/3711896.3736570}.
+
+\bibitem[Qian et~al.(2024)Qian, Liu, Liu, Chen, Dang, Li, Yang, Chen, Su, Cong,
+  Xu, Li, Liu, and Sun]{qian_2024}
+Chen Qian, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang,
+  Weize Chen, Yusheng Su, Xin Cong, Juyuan Xu, Dahai Li, Zhiyuan Liu, and
+  Maosong Sun.
+\newblock Chatdev: Communicative agents for software development.
+\newblock In \emph{ACL 2024}, 2024.
+
+\bibitem[Qin et~al.(2024)Qin, Liang, Ye, Zhu, Yan, Lu, Lin, Cong, Tang, Qian,
+  Zhao, Hong, Tian, Xie, Zhou, Gerstein, Li, Liu, and Sun]{qin_2024}
+Yujia Qin, Shihao Liang, Yining Ye, Kunlun Zhu, Lan Yan, Yaxi Lu, Yankai Lin,
+  Xin Cong, Xiangru Tang, Bill Qian, Sihan Zhao, Lauren Hong, Runchu Tian,
+  Ruobing Xie, Jie Zhou, Mark Gerstein, Dahai Li, Zhiyuan Liu, and Maosong Sun.
+\newblock Toolllm: Facilitating large language models to master 16000+
+  real-world apis.
+\newblock In \emph{ICLR 2024}, 2024.
+
+\bibitem[Schick et~al.(2023)Schick, Dwivedi-Yu, Dessì, Raileanu, Lomeli,
+  Hambro, Zettlemoyer, Cancedda, and Scialom]{schick_2023}
+Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli,
+  Eric Hambro, Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom.
+\newblock Toolformer: Language models can teach themselves to use tools.
+\newblock In \emph{NeurIPS 2023}, 2023.
+
+\bibitem[Shinn et~al.(2023)Shinn, Cassano, Berman, Gopinath, Narasimhan, and
+  Yao]{shinn_2023}
+Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik
+  Narasimhan, and Shunyu Yao.
+\newblock Reflexion: Language agents with verbal reinforcement learning.
+\newblock In \emph{NeurIPS 2023}, 2023.
+
+\bibitem[Smit et~al.(2024)Smit, Paul, Thomas, et~al.]{smit_2024}
+Andries Smit, Paul, Thomas, et~al.
+\newblock Should we be going mad? a look at multi-agent debate strategies for
+  llms.
+\newblock In \emph{ICML 2024}, 2024.
+
+\bibitem[{Unknown}(2025{\natexlab{a}})]{aflow_2025}
+{Unknown}.
+\newblock Aflow: Automating agentic workflow generation.
+\newblock In \emph{ICLR 2025}, 2025{\natexlab{a}}.
+
+\bibitem[{Unknown}(2025{\natexlab{b}})]{evolving_2025}
+{Unknown}.
+\newblock Multi-agent collaboration via evolving orchestration.
+\newblock arXiv preprint arXiv:2505.19591, 2025{\natexlab{b}}.
+
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le,
+  and Zhou]{wei_2022}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia,
+  Ed~Chi, Quoc Le, and Denny Zhou.
+\newblock Chain-of-thought prompting elicits reasoning in large language
+  models.
+\newblock In \emph{NeurIPS 2022}, 2022.
+
+\bibitem[Wu et~al.(2023)Wu, Bansal, Zhang, Wu, Zhang, Zhu, Li, Jiang, Zhang,
+  and Wang]{wu_2023}
+Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Shaokun Zhang, Erkang Zhu,
+  Beibin Li, Li~Jiang, Xiaoyun Zhang, and Chi Wang.
+\newblock Autogen: Enabling next-gen llm applications via multi-agent
+  conversation.
+\newblock In \emph{COLM 2024}, 2023.
+
+\bibitem[Yao et~al.(2023{\natexlab{a}})Yao, Yu, Zhao, Shafran, Griffiths, Cao,
+  and Narasimhan]{yao_2023b}
+Shunyu Yao, Dian Yu, Jeffrey Zhao, Izhak Shafran, Thomas~L. Griffiths, Yuan
+  Cao, and Karthik Narasimhan.
+\newblock Tree of thoughts: Deliberate problem solving with large language
+  models.
+\newblock In \emph{NeurIPS 2023}, 2023{\natexlab{a}}.
+
+\bibitem[Yao et~al.(2023{\natexlab{b}})Yao, Zhao, Yu, Du, Shafran, Narasimhan,
+  and Cao]{yao_2023a}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+  and Yuan Cao.
+\newblock React: Synergizing reasoning and acting in language models.
+\newblock In \emph{ICLR 2023}, 2023{\natexlab{b}}.
+
+\bibitem[Zhou et~al.(2024)Zhou, Xu, Zhu, Zhou, Lo, Sridhar, Cheng, Ou, Bisk,
+  Fried, Alon, and Neubig]{zhou_2024}
+Shuyan Zhou, Frank~F. Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar,
+  Xianyi Cheng, Tianyue Ou, Yonatan Bisk, Daniel Fried, Uri Alon, and Graham
+  Neubig.
+\newblock Webarena: A realistic web environment for building autonomous agents.
+\newblock In \emph{ICLR 2024}, 2024.
+
+\end{thebibliography}
