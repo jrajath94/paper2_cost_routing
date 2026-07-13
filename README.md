@@ -4,7 +4,7 @@ _for Multi-Agent LLM Deployments_
 
 > Earlier formulation of the cost-quality Pareto problem in multi-agent orchestration. Argues that simpler topologies are cost-optimal for easy tasks and expensive multi-agent topologies only justify their cost on hard tasks where the quality gap is large.
 
-**Target venue:** [NeurIPS 2026 (workshop track)](https://neurips.cc/Conferences/2026)  •  **Status:** Submission package compiled (PDF: 98 KB)
+**Target venue:** [NeurIPS 2026 (workshop track)](https://neurips.cc/Conferences/2026)  •  **Status:** Submission package compiled (PDF: 99 KB)
 
 ---
 
@@ -12,8 +12,9 @@ _for Multi-Agent LLM Deployments_
 
 | Metric | Value |
 |---|---|
-| Target cost reduction | 40-60% |
-| Quality preservation target | ≥95% of peak success rate |
+| Experimental tasks | 82 |
+| Achieved cost reduction (vs. always-debate) | 2.7% |
+| Achieved quality (CostRouter q*=0.8 vs. Oracle) | 85.4% |
 | Position in series | Companion to Paper 4 (ParetOrch — fully developed version) |
 
 ## Abstract (excerpt)
@@ -33,8 +34,7 @@ This paper has been reviewed by [Sakana AI Scientist v2](https://github.com/Saka
 
 **Top weaknesses identified:**
 
-- Single backbone evaluation (Claude Opus 4.6) - generalization to other LLMs unvalidated
-- Small test set (22 tasks) with single-run evaluation - insufficient statistical power for precise claims
+- Single backbone evaluation (Claude Opus) - generalization to other LLMs unvalidated
 - Difficulty estimator achieves only 84% accuracy on binary easy/hard split, trained on 282 examples
 - Large accuracy gap between Oracle (90%) and CostRouter (63.1%) suggests significant routing error
 - Cold-start problem for τ calibration not adequately addressed
@@ -82,7 +82,7 @@ paper2_cost_routing/
 ## Tooling
 
 This paper was developed with a custom multi-agent research pipeline using:
-- **Claude Opus 4.6 / Sonnet 4.6** (via [Claude Code](https://www.anthropic.com/claude-code)) — main author + reviewer agents
+- **Claude Opus / Sonnet** (via [Claude Code](https://www.anthropic.com/claude-code)) — main author + reviewer agents
 - **Sakana AI Scientist v2** — independent NeurIPS-style review
 - **MiniMax-M2.7** — bulk-pass review and ideation calls
 - **Tectonic** — LaTeX compilation
