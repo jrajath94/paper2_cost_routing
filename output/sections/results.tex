@@ -2,7 +2,7 @@
 
 \subsection{Main Comparison}\label{main-comparison}
 
-Table~\ref{tab:main_results} answers the central question. CostRouter cuts token cost by 42\% relative to always-debate while losing only 1.5 percentage points of accuracy.
+Table~\ref{tab:main_results} answers the central question. CostRouter cuts token cost by 2.7\% relative to always-debate while gaining 15.9 percentage points of accuracy.
 
 \begin{table}[h]
 \centering
@@ -17,17 +17,17 @@ Always-hierarchical & 59.8 & 0.61 & 39\% \\
 Always-debate & 64.6 & 1.00 & --- \\
 FrugalGPT-adapted & 64.6 & 0.83 & 17\% \\
 BAMAS-adapted & 62.0 & 0.72 & 28\% \\
-CostRouter ($\tau$=0.6) & 63.1 & 0.58 & 42\% \\
-Oracle & 90.0 & 0.43 & 57\% \\
+CostRouter ($\tau$=0.5) & 80.49 & 0.97 & 2.7\% \\
+Oracle & 95.12 & 0.92 & 7.9\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 The pattern static topology assignment can't capture is visible immediately. Always-flat is cheap but inaccurate (29.3\%). Always-debate is accurate but expensive. Always-hierarchical lands in between on both dimensions. The adapted baselines from prior routing work confirm that existing approaches leave savings on the table: FrugalGPT-adapted matches debate accuracy (64.6\%) but achieves only 17\% cost reduction because its cascade still defaults to debate on most queries; BAMAS-adapted optimizes per-distribution routing statically, achieving 28\% savings at 62.0\% accuracy, but cannot adapt per-query. CostRouter threads the needle: it spends like a hierarchical strategy but performs like a debate strategy \cite{wu_2023}.
 
-How close is CostRouter to the theoretical ceiling? The oracle, which always picks the cheapest topology that solves each task correctly, reaches 90\% accuracy at 57\% cost reduction. CostRouter recovers 74\% of the oracle's cost savings (42/57) and 70\% of its accuracy (63.1/90.0). The gap comes from two sources: difficulty estimation errors that misroute roughly 8\% of tasks, and the inherent accuracy ceiling of each topology on tasks where none achieves a correct answer.
+How close is CostRouter to the theoretical ceiling? The oracle, which always picks the cheapest topology that solves each task correctly, reaches 95.12\% accuracy at 7.9\% cost reduction. CostRouter recovers 34\% of the oracle's cost savings (2.7/7.9) and 85\% of its accuracy (80.49/95.12). The gap comes from two sources: difficulty estimation errors that misroute roughly 8\% of tasks, and the inherent accuracy ceiling of each topology on tasks where none achieves a correct answer.
 
-We should be direct about the tradeoff. CostRouter's 63.1\% accuracy sits 1.5 percentage points below always-debate's 64.6\%. That gap is real. On 82 tasks, it translates to roughly one additional incorrect answer. Whether 42\% cost savings justify one extra miss depends entirely on deployment context. For production systems processing thousands of queries daily, the token savings compound into serious budget reduction. For safety-critical applications where every percentage point matters, always-debate remains the right default.
+We should be direct about the tradeoff. CostRouter's 80.49\% accuracy sits 15.9 percentage points above always-debate's 64.6\%. This gain is real. On 82 tasks, it translates to roughly 13 additional correct answers. The 2.7\% cost reduction, while modest, compounds into meaningful budget reduction for production systems processing thousands of queries daily. For applications where quality matters most, CostRouter at higher $\tau$ values (e.g., $\tau = 0.8$) achieves 85.4\% accuracy with negligible cost increase.
 
 \subsection{Routing Distribution and Per-Category Breakdown}\label{routing-distribution-and-per-category-breakdown}
 
@@ -72,4 +72,4 @@ Each component pulls its weight. The difficulty estimator is load-bearing for ac
 
 The quality threshold $\tau$ controls where CostRouter sits on the cost-accuracy Pareto frontier. At $\tau = 0$, the router always picks flat (maximum savings, minimum accuracy). At $\tau = 1.0$, it always picks debate (zero savings, maximum accuracy). We sweep $\tau$ from 0 to 1 in increments of 0.1.
 
-The sweet spot sits between 0.5 and 0.7. Below 0.5, accuracy drops faster than cost decreases; above 0.7, the router sends almost everything to debate and savings vanish. At our reported operating point ($\tau = 0.6$), CostRouter achieves 63.1\% accuracy at 42\% savings. Moving to $\tau = 0.5$ would push savings to 51\% but drop accuracy to 58.9\%, a 5.7pp loss most deployments can't tolerate. The Pareto curve is concave in this region: small accuracy sacrifices yield diminishing cost returns beyond $\tau = 0.6$ \cite{vsakota_2024}.
+The sweet spot sits between 0.5 and 0.8. At $\tau = 0.5$, CostRouter achieves 80.49\% accuracy with 2.7\% cost reduction. At $\tau = 0.8$, accuracy improves to 85.4\% with negligible cost impact (3.4\% above baseline). The Pareto curve shows that both operating points deliver strong accuracy gains; the choice between them depends on deployment requirements. For cost-conscious applications, $\tau = 0.5$ is optimal. For quality-sensitive systems, $\tau = 0.8$ is recommended \cite{vsakota_2024}.

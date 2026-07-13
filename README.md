@@ -36,7 +36,7 @@ This paper has been reviewed by [Sakana AI Scientist v2](https://github.com/Saka
 
 - Single backbone evaluation (Claude Opus) - generalization to other LLMs unvalidated
 - Difficulty estimator achieves only 84% accuracy on binary easy/hard split, trained on 282 examples
-- Large accuracy gap between Oracle (90%) and CostRouter (63.1%) suggests significant routing error
+- Large accuracy gap between Oracle (95.12%) and CostRouter (80.49%) suggests significant routing error
 - Cold-start problem for τ calibration not adequately addressed
 
 > _Full review JSON: [`ai_scientist/reviews/minimax_review.json`](ai_scientist/reviews/minimax_review.json)._
