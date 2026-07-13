@@ -54,7 +54,7 @@
       "category": "Content Quality",
       "item": "Backbone model consistency",
       "status": "FAIL",
-      "details": "CRITICAL: Three conflicting backbone claims. experiments.tex line 65 says 'Claude Opus 4.6'. Table 1 caption (results.tex line 9) says 'GPT-4o backbone'. discussion.tex line 21 says 'GPT-4o'. introduction.tex line 1 mentions both. Reader cannot determine which backbone produced the reported results."
+      "details": "CRITICAL: Three conflicting backbone claims. experiments.tex line 65 says 'Claude Opus'. Table 1 caption (results.tex line 9) says 'GPT-4o backbone'. discussion.tex line 21 says 'GPT-4o'. introduction.tex line 1 mentions both. Reader cannot determine which backbone produced the reported results."
     },
     {
       "id": 8,
@@ -89,9 +89,9 @@
     {
       "id": "B1",
       "severity": "critical",
-      "issue": "Backbone model inconsistency (Claude Opus 4.6 vs GPT-4o)",
+      "issue": "Backbone model inconsistency (Claude Opus vs GPT-4o)",
       "locations": ["experiments.tex:65", "results.tex:9", "discussion.tex:21", "introduction.tex:1"],
-      "fix": "Pick one backbone name and apply consistently across all sections. If experiments used Claude Opus 4.6, update Table 1 caption and Discussion."
+      "fix": "Pick one backbone name and apply consistently across all sections. If experiments used Claude Opus, update Table 1 caption and Discussion."
     },
     {
       "id": "B2",
@@ -169,5 +169,5 @@
       "overall_mean": 6.08
     }
   },
-  "summary": "Paper 3 is NOT submission-ready. Aggregate review score 6.08 falls below the 7.0 threshold. The core contribution (topology routing as orthogonal cost axis to model routing) is genuinely novel and well-motivated. However, 5 blocking issues prevent submission: (1) backbone model inconsistency between Claude Opus 4.6 and GPT-4o across sections, (2) architecture diagram is a raw text placeholder, (3) two defined baselines missing from the main results table, (4) 3 broken cross-references, (5) contradictory Pareto knee claims. The 6 standard submission checks (abstract word count, anonymization, citations, URLs, AI patterns, PDF compilation) all PASS. Fix the 5 blocking issues and consider expanding the evaluation (more tasks, second backbone, confidence intervals) before resubmission."
+  "summary": "Paper 3 is NOT submission-ready. Aggregate review score 6.08 falls below the 7.0 threshold. The core contribution (topology routing as orthogonal cost axis to model routing) is genuinely novel and well-motivated. However, 5 blocking issues prevent submission: (1) backbone model inconsistency between Claude Opus and GPT-4o across sections, (2) architecture diagram is a raw text placeholder, (3) two defined baselines missing from the main results table, (4) 3 broken cross-references, (5) contradictory Pareto knee claims. The 6 standard submission checks (abstract word count, anonymization, citations, URLs, AI patterns, PDF compilation) all PASS. Fix the 5 blocking issues and consider expanding the evaluation (more tasks, second backbone, confidence intervals) before resubmission."
 }

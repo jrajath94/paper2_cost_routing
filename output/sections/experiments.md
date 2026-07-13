@@ -40,7 +40,7 @@ Four metrics capture the cost-quality tradeoff:
 
 ### 4.5 Implementation Details
 
-All experiments use Claude Opus 4.6 as the backbone LLM, consistent with the OrchestraBench protocol. Temperature is 1.0 (Claude default). Each topology wrapper enforces a 128K token generation budget within a 1M token context window. We record per-query token counts (input plus output), wall-clock time, and success/failure outcomes.
+All experiments use Claude Opus as the backbone LLM, consistent with the OrchestraBench protocol. Temperature is 1.0 (Claude default). Each topology wrapper enforces a 128K token generation budget within a 1M token context window. We record per-query token counts (input plus output), wall-clock time, and success/failure outcomes.
 
 CostRouter's difficulty estimator is a two-layer MLP (64 hidden units, ReLU activation, dropout 0.2) trained for 100 epochs with Adam (learning rate $10^{-3}$). Training takes under 30 seconds on a single CPU core. Accuracy profiles per topology are estimated via isotonic regression on the training split. The quality threshold $\tau$ is selected from the Pareto frontier on a 10-task validation subset held out from the 60-task training split.
 

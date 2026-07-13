@@ -18,7 +18,7 @@ So why didn't we implement joint routing? Scope. The topology cost algebra assum
 
 We count five, and they matter.
 
-First, all experiments use a single backbone (Claude Opus 4.6). The topology cost algebra's structural predictions should generalize across backbones since the cost multipliers depend on topology structure, not model identity. But the difficulty estimator's routing decisions are trained on Claude Opus 4.6 performance data and may not transfer. Running CostRouter with open-source backbones remains an open validation \cite{cemri_2025}.
+First, all experiments use a single backbone (Claude Opus). The topology cost algebra's structural predictions should generalize across backbones since the cost multipliers depend on topology structure, not model identity. But the difficulty estimator's routing decisions are trained on Claude Opus performance data and may not transfer. Running CostRouter with open-source backbones remains an open validation \cite{cemri_2025}.
 
 Second, the quality threshold $\tau$ requires calibration data: tasks with known topology-accuracy pairs. In cold-start deployments with no historical data, $\tau$ must be set conservatively (high, defaulting to debate) and refined as data accumulates. We did not test online calibration strategies.
 

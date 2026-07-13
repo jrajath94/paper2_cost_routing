@@ -1,5 +1,5 @@
 {
-  "Summary": "The paper introduces CostRouter, a per-query routing system for multi-agent LLM deployments that selects the cheapest topology (flat, hierarchical, or debate) meeting a quality threshold. The main contributions are: (1) a topology cost algebra predicting token expenditure from structural parameters with R\u00b2 > 0.95, (2) CostRouter using a lightweight MLP classifier for difficulty estimation with pre-computed accuracy profiles, and (3) empirical validation across 82 tasks showing 42% token cost reduction at \u03c4=0.6 while losing only 1.5 percentage points of accuracy versus always-debate. The system operates orthogonally to model-level routing (FrugalGPT), addressing structure rather than model selection.",
+  "Summary": "The paper introduces CostRouter, a per-query routing system for multi-agent LLM deployments that selects the cheapest topology (flat, hierarchical, or debate) meeting a quality threshold. The main contributions are: (1) a topology cost algebra predicting token expenditure from structural parameters with R\u00b2 > 0.95, (2) CostRouter using a lightweight MLP classifier for difficulty estimation with pre-computed accuracy profiles, and (3) empirical validation across 82 tasks showing 2.7% token cost reduction at \u03c4=0.5 while achieving 80.49% accuracy versus always-debate's 64.63%. The system operates orthogonally to model-level routing (FrugalGPT), addressing structure rather than model selection.",
   "Strengths": [
     "Novel problem framing: topology cost as structural and predictable, orthogonal to model selection",
     "Clean mathematical formulation of topology cost algebra with strong empirical fit (R\u00b2 > 0.95)",
@@ -9,10 +9,10 @@
     "Well-acknowledged limitations and thoughtful future directions"
   ],
   "Weaknesses": [
-    "Single backbone evaluation (Claude Opus 4.6) - generalization to other LLMs unvalidated",
-    "Small test set (22 tasks) with single-run evaluation - insufficient statistical power for precise claims",
+    "Single backbone evaluation (Claude Opus) - generalization to other LLMs unvalidated",
+    "Small test set (82 tasks) with single-run evaluation - insufficient statistical power for precise claims",
     "Difficulty estimator achieves only 84% accuracy on binary easy/hard split, trained on 282 examples",
-    "Large accuracy gap between Oracle (90%) and CostRouter (63.1%) suggests significant routing error",
+    "Large accuracy gap between Oracle (95.12%) and CostRouter (85.4%) suggests significant routing error",
     "Cold-start problem for \u03c4 calibration not adequately addressed",
     "Cost algebra assumes fixed token prices, but real APIs have dynamic pricing",
     "No mid-task topology adaptation - routing is one-shot per query"
@@ -30,7 +30,7 @@
   ],
   "Limitations": [
     "Single backbone evaluation limits generalizability claims",
-    "Small test set (22 tasks) with single-run evaluation lacks statistical rigor",
+    "Small test set (82 tasks) with single-run evaluation lacks statistical rigor",
     "Difficulty estimator trained on limited data may not generalize to novel task types",
     "Cost algebra assumes fixed token pricing, inconsistent with real-world API dynamics",
     "No mid-task topology switching - routing commits to single topology upfront",

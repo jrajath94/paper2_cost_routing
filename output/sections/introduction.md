@@ -1,4 +1,4 @@
-Topology cost is structural. Not per-token pricing, not model selection, not prompt length. A three-agent debate running four rounds of critique will consume roughly 24 times the tokens of a single LLM call. This holds whether the backbone is Claude Opus 4.6 or GPT-4o. Swap the model and the per-token price changes, but the multiplicative structure stays fixed; the cost multiplier is baked into the communication pattern before a single token gets generated.
+Topology cost is structural. Not per-token pricing, not model selection, not prompt length. A three-agent debate running four rounds of critique will consume roughly 24 times the tokens of a single LLM call. This holds whether the backbone is Claude Opus or GPT-4o. Swap the model and the per-token price changes, but the multiplicative structure stays fixed; the cost multiplier is baked into the communication pattern before a single token gets generated.
 
 Why does this matter? Because the accuracy gain from that 24x investment varies wildly with the query. On an easy factual question, debate produces the same answer as a flat single-agent call. Twenty-three extra units of token spend bought nothing. On a hard multi-step reasoning problem, adversarial refinement of debate lifts accuracy by 10-15 percentage points over flat execution. Same topology, same cost multiplier, entirely different return on investment.
 
@@ -18,6 +18,6 @@ We close it with three contributions:
 
 2. **CostRouter**, a per-query topology routing system that estimates task difficulty using a lightweight classifier, predicts expected accuracy per topology, and selects the cheapest topology exceeding a user-specified quality threshold $\tau$. Router overhead is less than 0.1\% of total task cost.
 
-3. **Empirical validation across 82 tasks** showing CostRouter achieves 40-60\% token cost reduction at matched accuracy compared to the best fixed-topology baseline. CostRouter traces the Pareto frontier within 8-12\% of oracle routing with perfect hindsight.
+3. **Empirical validation across 82 tasks** showing CostRouter achieves 2.7\% token cost reduction at matched accuracy compared to always-debate baseline, while improving cost-per-correct by 21.9\% and achieving 85.4\% accuracy versus oracle's 95.12\%.
 
 Section 2 positions CostRouter against model-level routing and topology optimization. Section 3 formalizes the cost algebra, difficulty estimator, routing policy, and theoretical savings bound. Section 4 describes the experimental setup, and Sections 5-6 report results and discuss limitations.

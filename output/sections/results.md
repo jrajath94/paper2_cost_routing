@@ -4,7 +4,7 @@
 
 Table 1 answers the central question. CostRouter cuts token cost by 42% relative to always-debate while losing only 1.5 percentage points of accuracy.
 
-[TABLE: tab:main_results --- Routing strategy comparison across 82 tasks (GAIA, MATH, HumanEval, WebArena). Accuracy is strict full-credit. All topologies use Claude Opus 4.6 backbone. Cost is measured in thousands of tokens; relative cost normalized to always-debate = 1.00.
+[TABLE: tab:main_results --- Routing strategy comparison across 82 tasks (GAIA, MATH, HumanEval, WebArena). Accuracy is strict full-credit. All topologies use Claude Opus backbone. Cost is measured in thousands of tokens; relative cost normalized to always-debate = 1.00.
 
 | Strategy            | Accuracy (%) | Relative Cost | Cost Reduction vs. Debate |
 |---------------------|-------------|---------------|---------------------------|
@@ -38,7 +38,7 @@ CostRouter does not spread tasks evenly across topologies. It routes 45% to flat
 
 Coding tasks see the largest savings (47%) because nearly a third are straightforward enough for a single-pass flat call. But coding also has the highest hierarchical routing rate (47%); complex implementation tasks decompose cleanly into subtasks, and the planner-executor pattern handles them at roughly half the cost of debate. Research tasks show the least savings (38%) because their difficulty is more uniformly distributed, leaving fewer easy wins for flat routing.
 
-On easy tasks, CostRouter's behavior is simple: it always picks flat. Every easy task in our corpus is solvable by a single Claude Opus 4.6 call, so routing to hierarchical or debate wastes tokens on coordination that produces no accuracy gain. This is the single largest source of cost savings; flat routing on easy tasks eliminates 100% of multi-agent overhead for those queries.
+On easy tasks, CostRouter's behavior is simple: it always picks flat. Every easy task in our corpus is solvable by a single Claude Opus call, so routing to hierarchical or debate wastes tokens on coordination that produces no accuracy gain. This is the single largest source of cost savings; flat routing on easy tasks eliminates 100% of multi-agent overhead for those queries.
 
 Hard tasks follow the DIT dimensions. Tasks with high decomposability ($d \geq 0.6$) go to hierarchical; their subproblem structure means a planner-executor pipeline solves them at lower cost than debate's quadratic token scaling. Tasks with high iterativeness ($d \geq 0.6$ on the I dimension) go to debate; the multi-round critique structure is worth its token cost when progress requires adversarial refinement \cite{smit_2024}. The router doesn't just pick cheap topologies. It picks the cheapest topology that the difficulty estimator predicts will still exceed $\tau$.
 

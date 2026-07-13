@@ -50,7 +50,7 @@
           "citation_density": "2-4",
           "figure_slots": ["tab:main_results", "fig:pareto", "fig:ablation"],
           "agent": "paper-section-writer",
-          "argumentation_note": "Lead with main results table showing 40-60% cost reduction."
+          "argumentation_note": "Lead with main results table showing 2.7% token cost reduction."
         },
         {
           "id": "discussion",
