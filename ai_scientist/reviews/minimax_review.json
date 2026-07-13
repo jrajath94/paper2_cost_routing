@@ -23,7 +23,7 @@
   "Significance": 4,
   "Questions": [
     "How does CostRouter's performance generalize across different LLM backbones (GPT-4o, Claude Sonnet, open-source models)? The paper acknowledges this limitation but it's critical for practical deployment.",
-    "What explains the large gap between Oracle (90% accuracy) and CostRouter (63.1% accuracy)? Is this primarily due to difficulty estimation errors, accuracy profile miscalibration, or fundamental limitations of the routing approach?",
+    "What explains the large gap between Oracle (95.12% accuracy) and CostRouter (80.49% accuracy)? Is this primarily due to difficulty estimation errors, accuracy profile miscalibration, or fundamental limitations of the routing approach?",
     "The difficulty estimator uses 282 training examples with 84% accuracy on binary classification. How robust is this to distribution shift? What happens with query types not represented in OrchestraBench?",
     "For cold-start deployments with no historical accuracy data, how should practitioners set \u03c4? The paper recommends defaulting to debate, but this largely defeats the purpose.",
     "The paper claims the cost algebra is backbone-independent. Can you provide experiments showing that token count predictions hold across different model families with different context handling behaviors?"
@@ -34,7 +34,7 @@
     "Difficulty estimator trained on limited data may not generalize to novel task types",
     "Cost algebra assumes fixed token pricing, inconsistent with real-world API dynamics",
     "No mid-task topology switching - routing commits to single topology upfront",
-    "Oracle achieves 90% accuracy vs CostRouter's 63.1%, indicating significant room for improvement",
+    "Oracle achieves 95.12% accuracy vs CostRouter's 80.49%, indicating significant room for improvement",
     "Cold-start \u03c4 calibration requires conservative defaults, delaying cost benefits"
   ],
   "Ethical Concerns": false,

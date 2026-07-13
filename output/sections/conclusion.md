@@ -2,7 +2,7 @@
 
 Multi-agent LLM topologies carry wildly different price tags, and most deployments ignore this. A debate topology with three agents and four rounds costs 24x a single flat call, yet on easy queries the accuracy gain is zero. This paper introduced three tools for closing that gap.
 
-First, a topology cost algebra that decomposes multi-agent token spend into structural parameters (agents, rounds, depth, context growth), making cost predictable before execution. Second, CostRouter, a per-query routing policy that selects the cheapest topology whose expected accuracy exceeds a calibrated threshold $\tau$. Third, empirical validation across 82 tasks on GAIA, MATH, HumanEval, and WebArena showing 42% token cost reduction at less than 2 percentage points of accuracy loss relative to always-debate \cite{chen_2023_frugalgpt}.
+First, a topology cost algebra that decomposes multi-agent token spend into structural parameters (agents, rounds, depth, context growth), making cost predictable before execution. Second, CostRouter, a per-query routing policy that selects the cheapest topology whose expected accuracy exceeds a calibrated threshold $\tau$. Third, empirical validation across 82 tasks on GAIA, MATH, HumanEval, and WebArena showing 2.7% token cost reduction at less than 2 percentage points of accuracy loss relative to always-debate \cite{chen_2023_frugalgpt}.
 
 The 1.5pp accuracy drop is honest. For most production workloads, it is a trade worth making.
 
