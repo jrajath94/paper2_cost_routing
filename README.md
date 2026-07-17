@@ -21,26 +21,6 @@ _for Multi-Agent LLM Deployments_
 
 Treats multi-agent topology selection as a cost-quality Pareto problem. The right topology depends not just on task difficulty but on the marginal cost of capability — a question prior work largely ignores by assuming compute is free or fixed.
 
-## Independent Review (Sakana AI Scientist v2)
-
-This paper has been reviewed by [Sakana AI Scientist v2](https://github.com/SakanaAI/AI-Scientist-v2)'s `perform_llm_review` module via the MiniMax-M2.7 backend. The review uses NeurIPS-style reviewer guidelines.
-
-| Metric | Score |
-|---|---|
-| Overall | **6** / 10 |
-| Decision | **Accept** |
-| Soundness | 3 / 4 |
-| Confidence | 3 / 5 |
-
-**Top weaknesses identified:**
-
-- Single backbone evaluation (Claude Opus) - generalization to other LLMs unvalidated
-- Difficulty estimator achieves only 84% accuracy on binary easy/hard split, trained on 282 examples
-- Large accuracy gap between Oracle (95.12%) and CostRouter (80.49%) suggests significant routing error
-- Cold-start problem for τ calibration not adequately addressed
-
-> _Full review JSON: [`ai_scientist/reviews/minimax_review.json`](ai_scientist/reviews/minimax_review.json)._
-
 ## Reproducibility
 
 ```bash
@@ -54,9 +34,7 @@ tectonic output/paper.tex   # produces output/paper.pdf
 # Browse the materials:
 #   output/sections/   — per-section markdown + .tex
 #   output/figures/    — figures (PDF + PNG)
-#   output/reviews/    — citation, data, math, figure, AI-pattern audits
 #   experiments/       — task suite + results JSON
-#   ai_scientist/      — Sakana AI Scientist v2 review pipeline outputs
 ```
 
 
@@ -66,15 +44,13 @@ tectonic output/paper.tex   # produces output/paper.pdf
 paper2_cost_routing/
 ├── README.md              ← you are here
 ├── paper.pdf              ← compiled PDF
-├── output/                ← LaTeX source, sections, figures, reviews, bibliography
+├── output/                ← LaTeX source, sections, figures, bibliography
 │   ├── paper.tex / main.tex
 │   ├── sections/
 │   ├── figures/
-│   ├── reviews/           (audits: citation, data, math, figure, consistency, AI patterns)
 │   └── bibliography.bib / references.bib
 ├── experiments/           ← task suite + results data
 ├── scripts/               ← pipeline scripts (literature retrieval, citation verification, etc.)
-├── ai_scientist/          ← Sakana AI Scientist v2 outputs (independent review JSON)
 ├── state/                 ← paper state and pipeline log
 └── venues/                ← venue configs (NeurIPS / TMLR / JAIR formatting rules)
 ```
@@ -83,7 +59,6 @@ paper2_cost_routing/
 
 This paper was developed with a custom multi-agent research pipeline using:
 - **Claude Opus / Sonnet** (via [Claude Code](https://www.anthropic.com/claude-code)) — main author + reviewer agents
-- **Sakana AI Scientist v2** — independent NeurIPS-style review
 - **MiniMax-M2.7** — bulk-pass review and ideation calls
 - **Tectonic** — LaTeX compilation
 - **Semantic Scholar / OpenAlex / CrossRef** APIs for citation verification
